@@ -1,0 +1,31 @@
+syntax = "proto3";
+package main;
+
+
+service chartDataExchange {
+    rpc OHLC (getWindow) returns (windowDataArray);
+}
+
+// Default window size is 4 hours (14400 (in seconds))
+message getWindow {
+    enum windowSizeSelector {
+       uint64 fifteen = 15;
+       uint64 w60 = 60;
+       uint64 w300 = 300;
+       uint64 w900 = 900;
+       uint64 w3600 = 3600;
+       uint64 w14400 = 14400;
+       uint64 w86400 = 86400;
+    }
+    windowSizeSelector windowSize = 14400;
+}
+
+message windowDataArray {
+    string startTime = 1;
+    uint64 time = 2;
+    double open = 3;
+    double high = 4;
+    double low = 5;
+    double close = 6;
+    double volume = 7;
+}
