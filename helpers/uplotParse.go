@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 type OhlcObject struct {
 	Result  []StOHLCv `json:"result"`
 	Success bool      `json:"success"`
@@ -25,3 +26,10 @@ type FundingPaymentsResult struct {
 	Rate    float64 `json:"rate"`
 	Time    string  `json:"time"`
 }
+=======
+package main
+
+func parseData([]string) {
+
+}
+>>>>>>> 24392a3 (commit for usage on laptop)

@@ -5,6 +5,10 @@ go 1.17
 require (
 	github.com/dustin/go-humanize v1.0.0
 	github.com/go-numb/go-ftx v0.0.0-20211122173332-32ef3236a74c
+<<<<<<< HEAD
+=======
+	github.com/joho/godotenv v1.4.0
+>>>>>>> 24392a3 (commit for usage on laptop)
 	github.com/labstack/gommon v0.3.1
 	github.com/sdcoffey/techan v0.12.1
 	google.golang.org/grpc v1.42.0
