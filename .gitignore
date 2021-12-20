@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -14,6 +13,4 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
-=======
 helpers/creds.env
->>>>>>> 24392a3 (commit for usage on laptop)

@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-package main
-
-import (
-	"github.com/sdcoffey/techan"
-)
-
-func main() {
-	RestActions()
-	WebsocketActions()
-	techan.NewEMAIndicator()
-
-}
-=======
 package main
 
 import (
@@ -53,4 +39,3 @@ func main() {
 	fmt.Println(movingAverage.Calculate(0).FormattedString(2))
 
 }
->>>>>>> 24392a3 (commit for usage on laptop)

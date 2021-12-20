@@ -1,53 +1,3 @@
-<<<<<<< HEAD
-package main
-
-import (
-	"context"
-	"fmt"
-	"github.com/yoeria/goftxlogistics/helpers/creds"
-	"github.com/go-numb/go-ftx/realtime"
-)
-
-func WebsocketActions() {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-
-	ch := make(chan realtime.Response)
-	go realtime.Connect(ctx, ch, []string{"ticker"}, []string{"BTC-PERP", "ETH-PERP"}, nil)
-	go realtime.ConnectForPrivate(ctx, ch, creds.readonlyKey, readonlySecret, []string{"orders", "fills"}, nil)
-
-	for v := range ch {
-		switch ctx.Value(v) {
-		case realtime.TICKER:
-			fmt.Printf("%s	%+v\n", v.Symbol, v.Ticker)
-
-		case realtime.TRADES:
-			fmt.Printf("%s	%+v\n", v.Symbol, v.Trades)
-			for i := range v.Trades {
-				if v.Trades[i].Liquidation {
-					fmt.Printf("-----------------------------%+v\n", v.Trades[i])
-				}
-			}
-
-		case realtime.ORDERBOOK:
-			fmt.Printf("%s	%+v\n", v.Symbol, v.Orderbook)
-
-		case realtime.ORDERS:
-			fmt.Printf("%d	%+v\n", v.Type, v.Orders)
-
-		case realtime.FILLS:
-			fmt.Printf("%d	%+v\n", v.Type, v.Fills)
-
-		case realtime.UNDEFINED:
-			fmt.Printf("UNDEFINED %s	%s\n", v.Symbol, v.Results.Error())
-		default:
-			fmt.Printf("default: Errors %s	%s\n", v.Symbol, v.Results.Error())
-
-		}
-
-	}
-}
-=======
 package main
 
 import (
@@ -95,4 +45,3 @@ func WebsocketActions() {
 
 	}
 }
->>>>>>> 24392a3 (commit for usage on laptop)
