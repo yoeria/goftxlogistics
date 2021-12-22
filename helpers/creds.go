@@ -8,10 +8,10 @@ import (
 	"github.com/joho/godotenv"
 )
 
-//
-func creds(i string) {
+// Give "key" or "secret" as argument for desired return value
+func Creds(i string) {
 
-	type err  error = godotenv.Load("./creds.env")
+	err := godotenv.Load("./creds.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
