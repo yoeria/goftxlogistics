@@ -7,6 +7,10 @@ import (
 	"github.com/joho/godotenv"
 )
 
+func main(){
+	LoadCreds()
+}
+
 // Give "key" or "secret" as argument for desired return value
 func LoadCreds()  {
 
@@ -14,7 +18,6 @@ func LoadCreds()  {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-
 
 }
 var ReadonlyKey string = os.Getenv("FTX_KEY")
