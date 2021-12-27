@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
+
 	"github.com/go-numb/go-ftx/realtime"
 )
 
@@ -12,7 +14,7 @@ func WebsocketActions() {
 
 	ch := make(chan realtime.Response)
 	go realtime.Connect(ctx, ch, []string{"ticker"}, []string{"BTC-PERP", "ETH-PERP"}, nil)
-	go realtime.ConnectForPrivate(ctx, ch, , readonlySecret, []string{"orders", "fills"}, nil)
+	go realtime.ConnectForPrivate(ctx, ch, os.Getenv("FTX_KEY"), os.Getenv("FTX_SECRET"), []string{"orders", "fills"}, nil)
 
 	for v := range ch {
 		switch ctx.Value(v) {

@@ -7,9 +7,12 @@ import (
 
 	"github.com/sdcoffey/big"
 	"github.com/sdcoffey/techan"
+
+	"github.com/yoeria/goftxlogistics"
 )
 
 func main() {
+	LoadCreds()
 	RestActions()
 	WebsocketActions()
 	series := techan.NewTimeSeries()

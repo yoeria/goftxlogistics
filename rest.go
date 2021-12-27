@@ -2,16 +2,15 @@ package main
 
 import (
 	"fmt"
+	//"log"
+	"sort"
+	"strings"
+	"os"
 
 	"github.com/dustin/go-humanize"
 	"github.com/go-numb/go-ftx/auth"
 	"github.com/go-numb/go-ftx/rest"
 	"github.com/go-numb/go-ftx/rest/private/orders"
-
-	//"log"
-	"sort"
-	"strings"
-
 	"github.com/go-numb/go-ftx/rest/private/account"
 	"github.com/go-numb/go-ftx/rest/public/futures"
 	"github.com/go-numb/go-ftx/rest/public/markets"
@@ -20,6 +19,10 @@ import (
 )
 
 func RestActions() {
+	// Creds
+	LoadCreds()
+	readonlyKey := os.Getenv("FTX_KEY")
+	readonlySecret := os.Getenv("FTX_SECRET")
 	// Only main account
 	client := rest.New(auth.New(readonlyKey, readonlySecret))
 
