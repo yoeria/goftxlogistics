@@ -1,4 +1,4 @@
-module github.com/yoeria/goftxlogistics
+module github.com/yoeria/goftxlogistics/v2
 
 go 1.17
 
