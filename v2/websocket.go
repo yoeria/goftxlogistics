@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 
-	"./helpers"
 	"github.com/go-numb/go-ftx/realtime"
 )
 
