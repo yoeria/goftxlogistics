@@ -7,9 +7,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func main(){
-	LoadCreds()
-}
 
 // Give "key" or "secret" as argument for desired return value
 func LoadCreds()  {
