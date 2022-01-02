@@ -1,5 +1,6 @@
 syntax = "proto3";
 package main;
+option go_package = "github.com/yoeria/goftxlogistics";
 
 
 service chartDataExchange {
@@ -9,13 +10,13 @@ service chartDataExchange {
 // Default window size is 4 hours (14400 (in seconds))
 message getWindow {
     enum windowSizeSelector {
-       uint64 fifteen = 15;
-       uint64 w60 = 60;
-       uint64 w300 = 300;
-       uint64 w900 = 900;
-       uint64 w3600 = 3600;
-       uint64 w14400 = 14400;
-       uint64 w86400 = 86400;
+        w15 = 0;
+        w60 = 60;
+        w300 = 300;
+        w900 = 900;
+        w3600 = 3600;
+        w14400 = 14400;
+        w86400 = 86400;
     }
     windowSizeSelector windowSize = 14400;
 }
