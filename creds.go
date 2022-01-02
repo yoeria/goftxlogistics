@@ -4,14 +4,14 @@ import (
 	"log"
 	"os"
 
-	"github.com/joho/godotenv"
+	dotenv "github.com/joho/godotenv"
 )
 
 
 // Give "key" or "secret" as argument for desired return value
 func LoadCreds()  {
 
-	err := godotenv.Load("./creds.env")
+	err := dotenv.Load("./creds.env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
