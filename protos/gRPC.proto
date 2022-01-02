@@ -6,7 +6,7 @@ option java_outer_classname = "RouteGuideProto";
 option objc_class_prefix = "RTG";
 option go_package = "github.com/yoeria/goftxlogistics";
 
-package main;
+package protos;
 
 // Interface exported by the server.
 service RouteGuide {

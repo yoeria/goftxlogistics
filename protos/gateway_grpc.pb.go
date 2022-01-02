@@ -31,7 +31,7 @@ func NewChartDataExchangeClient(cc grpc.ClientConnInterface) ChartDataExchangeCl
 
 func (c *chartDataExchangeClient) OHLC(ctx context.Context, in *GetWindow, opts ...grpc.CallOption) (*WindowDataArray, error) {
 	out := new(WindowDataArray)
-	err := c.cc.Invoke(ctx, "/main.chartDataExchange/OHLC", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/protos.chartDataExchange/OHLC", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func _ChartDataExchange_OHLC_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/main.chartDataExchange/OHLC",
+		FullMethod: "/protos.chartDataExchange/OHLC",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ChartDataExchangeServer).OHLC(ctx, req.(*GetWindow))
@@ -88,7 +88,7 @@ func _ChartDataExchange_OHLC_Handler(srv interface{}, ctx context.Context, dec f
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ChartDataExchange_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "main.chartDataExchange",
+	ServiceName: "protos.chartDataExchange",
 	HandlerType: (*ChartDataExchangeServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
