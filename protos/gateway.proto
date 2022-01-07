@@ -1,24 +1,14 @@
 syntax = "proto3";
 package protos;
-option go_package = "github.com/yoeria/goftxlogistics";
+option go_package = "github.com/yoeria/goftxlogistics/protos";
 
 
 service chartDataExchange {
-    rpc OHLC (getWindow) returns (windowDataArray);
+    rpc getOHLC(windowSize) returns (windowDataArray) {}
 }
 
-// Default window size is 4 hours (14400 (in seconds))
-message getWindow {
-    enum windowSizeSelector {
-        w15 = 0;
-        w60 = 60;
-        w300 = 300;
-        w900 = 900;
-        w3600 = 3600;
-        w14400 = 14400;
-        w86400 = 86400;
-    }
-    windowSizeSelector windowSize = 14400;
+message windowSize {
+    int32 interval = 1;
 }
 
 message windowDataArray {

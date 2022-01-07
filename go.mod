@@ -1,4 +1,4 @@
-module github.com/yoeria/goftxlogistics/v2
+module github.com/yoeria/goftxlogistics
 
 go 1.17
 
@@ -37,3 +37,5 @@ require (
 	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
+
+replace github.com/yoeria/goftxlogistics/protos => ./protos

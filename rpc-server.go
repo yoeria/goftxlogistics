@@ -7,16 +7,17 @@ import (
 	"net"
 
 	"google.golang.org/grpc"
+
+	pb "github.com/yoeria/goftxlogistics/protos"
 )
 
 const (
 	port = ":50051"
 )
 
-// SayHello implements helloworld.GreeterServer
-func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+func (s *pb.ChartDataExchangeServer) serveWindowDataArray(ctx context.Context, in *pb.) (*pb.HelloReply, error) {
 	log.Printf("Received: %v", in.GetName())
-	return &pb.HelloReply{Message: "Hello " + in.GetName()}, nil
+	return &pb.WindowDataArray{}, nil
 }
 
 func (s *server) handleChartDataRequest(ctx context.Context, in *pb.ChartDataRequest) (*pb.ChartDataReply, error) {
