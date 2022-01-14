@@ -3,31 +3,28 @@ package main
 import (
 	"fmt"
 	//"log"
+	"os"
 	"sort"
 	"strings"
-	"os"
 
 	"github.com/dustin/go-humanize"
 	"github.com/go-numb/go-ftx/auth"
 	"github.com/go-numb/go-ftx/rest"
-	"github.com/go-numb/go-ftx/rest/private/orders"
 	"github.com/go-numb/go-ftx/rest/private/account"
+	"github.com/go-numb/go-ftx/rest/private/orders"
 	"github.com/go-numb/go-ftx/rest/public/futures"
 	"github.com/go-numb/go-ftx/rest/public/markets"
 	"github.com/go-numb/go-ftx/types"
 	"github.com/labstack/gommon/log"
 )
 
-func RestActions() {
-	// Creds
+func LoginRest(wantMainAccount bool) *rest.Client {
 	LoadCreds()
 	readonlyKey := os.Getenv("FTX_KEY")
 	readonlySecret := os.Getenv("FTX_SECRET")
 	// Only main account
 	client := rest.New(auth.New(readonlyKey, readonlySecret))
-
-	// or
-	// UseSubAccounts
+	// Client with subaccounts
 	clientWithSubAccounts := rest.New(
 		auth.New(
 			readonlyKey,
@@ -43,28 +40,28 @@ func RestActions() {
 			// many....
 		))
 	// switch subaccount
-	clientWithSubAccounts.Auth.UseSubAccountID(1) // or 2... this number is key in map[int]SubAccount
+	clientWithSubAccounts.Auth.UseSubAccountID(1)
+
+	return client
+
+}
+
+func RestActions() {
+	// Creds
+
+	// or
+	// UseSubAccounts
+	// or 2... this number is key in map[int]SubAccount
 
 	// account informations
 	// client or clientWithSubAccounts in this time.
-	c := client // or clientWithSubAccounts
+	c := LoginRest(true) // or clientWithSubAccounts
 	info, err := c.Information(&account.RequestForInformation{})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("%v\n", info)
-
-	// lev, err := c.Leverage(5)
-	lev, err := c.Leverage(&account.RequestForLeverage{
-		Leverage: 3,
-	})
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Printf("%v\n", lev)
+	fmt.Printf("Account information:\n %v\n", info)
 
 	market, err := c.Markets(&markets.RequestForMarkets{
 		ProductCode: "XRPBULL/USDT",
@@ -104,8 +101,8 @@ func RestActions() {
 		PostOnly:   false,
 	})
 	if err != nil {
-		 fmt.Println(err)
-		}
+		fmt.Println(err)
+	}
 
 	fmt.Printf("%+v\n", order)
 
@@ -121,5 +118,20 @@ func RestActions() {
 
 	fmt.Println(ok)
 	// ok is status comment
+
+}
+
+func SetAccountLeverage() {
+	c := LoginRest(true)
+	// lev, err := c.Leverage(5)
+	lev, err := c.Leverage(&account.RequestForLeverage{
+		Leverage: 3,
+	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("%v\n", lev)
 
 }

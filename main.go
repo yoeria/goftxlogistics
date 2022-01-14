@@ -37,6 +37,6 @@ func main() {
 	closePrices := techan.NewClosePriceIndicator(series)
 	movingAverage := techan.NewEMAIndicator(closePrices, 10) // Create an exponential moving average with a window of 10
 
-	fmt.Println(movingAverage.Calculate(0).FormattedString(2))
+	fmt.Println("Moving Average:\t", movingAverage.Calculate(0).FormattedString(2))
 
 }

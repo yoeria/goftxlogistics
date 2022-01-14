@@ -4,12 +4,14 @@ go 1.17
 
 require (
 	github.com/dustin/go-humanize v1.0.0
+	github.com/go-echarts/go-echarts/v2 v2.2.4
 	github.com/go-numb/go-ftx v0.0.0-20211208060907-82614a9fd25b
 	github.com/joho/godotenv v1.4.0
 	github.com/labstack/gommon v0.3.1
 	github.com/sdcoffey/big v0.7.0
 	github.com/sdcoffey/techan v0.12.1
 	google.golang.org/grpc v1.43.0
+	google.golang.org/protobuf v1.25.0
 )
 
 require (
@@ -34,7 +36,6 @@ require (
 	golang.org/x/sys v0.0.0-20211103235746-7861aae1554b // indirect
 	golang.org/x/text v0.3.3 // indirect
 	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013 // indirect
-	google.golang.org/protobuf v1.25.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
 

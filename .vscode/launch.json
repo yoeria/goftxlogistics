@@ -16,7 +16,7 @@
             "name": "> package",
             "type": "go",
             "request": "launch",
-            "mode": "auto",
+            "mode": "debug",
             "debugAdapter": "dlv-dap",
             "program": "${fileDirname}"
         }
