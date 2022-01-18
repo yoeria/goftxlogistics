@@ -37,12 +37,16 @@ func LoginRest(wantMainAccount bool) *rest.Client {
 				UUID:     2,
 				Nickname: "Test",
 			},
-			// many....
 		))
 	// switch subaccount
-	clientWithSubAccounts.Auth.UseSubAccountID(1)
 
-	return client
+	if wantMainAccount {
+		return client
+	} else if !wantMainAccount {
+		return clientWithSubAccounts
+	} else {
+		return client
+	}
 
 }
 
