@@ -3,5 +3,8 @@
         {
             "path": "/Users/linux/git/bot/src/bot-app/go-ftx"
         }
-    ]
+    ],
+    "settings": {
+        //   "go.goroot": "/opt/homebrew/Cellar/go/1.17.5/libexec",
+    }
 }
