@@ -11,8 +11,6 @@ import (
 
 func main() {
 	LoadCreds()
-	RestActions()
-	WebsocketActions()
 	series := techan.NewTimeSeries()
 
 	// fetch this from your preferred exchange
@@ -38,5 +36,7 @@ func main() {
 	movingAverage := techan.NewEMAIndicator(closePrices, 10) // Create an exponential moving average with a window of 10
 
 	fmt.Println("Moving Average:\t", movingAverage.Calculate(0).FormattedString(2))
+
+	GetFundingCosts()
 
 }

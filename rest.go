@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	//"log"
-	"os"
+
 	"sort"
 	"strings"
 
@@ -11,6 +11,7 @@ import (
 	"github.com/go-numb/go-ftx/auth"
 	"github.com/go-numb/go-ftx/rest"
 	"github.com/go-numb/go-ftx/rest/private/account"
+	"github.com/go-numb/go-ftx/rest/private/funding"
 	"github.com/go-numb/go-ftx/rest/private/orders"
 	"github.com/go-numb/go-ftx/rest/public/futures"
 	"github.com/go-numb/go-ftx/rest/public/markets"
@@ -20,15 +21,13 @@ import (
 
 func LoginRest(wantMainAccount bool) *rest.Client {
 	LoadCreds()
-	readonlyKey := os.Getenv("FTX_KEY")
-	readonlySecret := os.Getenv("FTX_SECRET")
 	// Only main account
-	client := rest.New(auth.New(readonlyKey, readonlySecret))
+	client := rest.New(auth.New(ReadonlyKey, ReadonlySecret))
 	// Client with subaccounts
 	clientWithSubAccounts := rest.New(
 		auth.New(
-			readonlyKey,
-			readonlySecret,
+			ReadonlyKey,
+			ReadonlySecret,
 			auth.SubAccount{
 				UUID:     1,
 				Nickname: "MM",
@@ -51,15 +50,7 @@ func LoginRest(wantMainAccount bool) *rest.Client {
 }
 
 func RestActions() {
-	// Creds
-
-	// or
-	// UseSubAccounts
-	// or 2... this number is key in map[int]SubAccount
-
-	// account informations
-	// client or clientWithSubAccounts in this time.
-	c := LoginRest(true) // or clientWithSubAccounts
+	c := LoginRest(true)
 	info, err := c.Information(&account.RequestForInformation{})
 	if err != nil {
 		log.Fatal(err)
@@ -68,7 +59,7 @@ func RestActions() {
 	fmt.Printf("Account information:\n %v\n", info)
 
 	market, err := c.Markets(&markets.RequestForMarkets{
-		ProductCode: "XRPBULL/USDT",
+		ProductCode: "ETH/USD",
 	})
 
 	if err != nil {
@@ -91,13 +82,17 @@ func RestActions() {
 	for _, v := range *rates {
 		fmt.Printf("%s			%s		%s\n", humanize.Commaf(v.Rate), v.Future, v.Time.String())
 	}
+}
+
+func PlaceLimitOrder(market string, price, size float64) {
+	c := LoginRest(true)
 
 	order, err := c.PlaceOrder(&orders.RequestForPlaceOrder{
 		Type:   types.LIMIT,
-		Market: "BTC-PERP",
+		Market: market,
 		Side:   types.BUY,
-		Price:  6200,
-		Size:   0.01,
+		Price:  price,
+		Size:   size,
 		// Optionals
 		ClientID:   "use_original_client_id",
 		Ioc:        false,
@@ -109,20 +104,6 @@ func RestActions() {
 	}
 
 	fmt.Printf("%+v\n", order)
-
-	ok, err := c.CancelByID(&orders.RequestForCancelByID{
-		OrderID: 1,
-		// either... , prioritize clientID
-		ClientID:       "",
-		TriggerOrderID: "",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println(ok)
-	// ok is status comment
-
 }
 
 func SetAccountLeverage() {
@@ -138,4 +119,13 @@ func SetAccountLeverage() {
 
 	fmt.Printf("%v\n", lev)
 
+}
+
+func GetFundingCosts() {
+	c := LoginRest(true)
+	funding, err := c.Funding(&funding.Request{})
+	if err != nil {
+		fmt.Println(fmt.Errorf("ERROR message: %w", err))
+	}
+	fmt.Printf("funding: %v\n", funding)
 }

@@ -6,7 +6,7 @@ require (
 	github.com/dustin/go-humanize v1.0.0
 	github.com/go-echarts/go-echarts/v2 v2.2.4
 	github.com/go-numb/go-ftx v0.0.0-20211208060907-82614a9fd25b
-	github.com/go-redis/redis v6.15.9+incompatible
+	github.com/go-redis/redis/v8 v8.11.4
 	github.com/joho/godotenv v1.4.0
 	github.com/labstack/gommon v0.3.1
 	github.com/sdcoffey/big v0.7.0
@@ -18,7 +18,9 @@ require (
 require (
 	github.com/andybalholm/brotli v1.0.0 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect
+	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/go-querystring v1.0.0 // indirect
 	github.com/gorilla/websocket v1.4.2 // indirect
