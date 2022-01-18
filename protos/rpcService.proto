@@ -1,0 +1,15 @@
+syntax = "proto3";
+package protos;
+option go_package = "github.com/yoeria/goftxlogistics/protos";
+
+
+message OHLCRequest {
+    string queryString = 1;
+}
+
+message OHLCResponse {
+    string queryResponse = 1;
+}
+service OHLCService {
+    rpc OHLC (OHLCRequest) returns (OHLCResponse);
+}
