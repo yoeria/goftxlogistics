@@ -19,46 +19,30 @@ import (
 	"github.com/labstack/gommon/log"
 )
 
-func LoginRest(wantMainAccount bool) *rest.Client {
-	LoadCreds()
-	// Only main account
-	client := rest.New(auth.New(ReadonlyKey, ReadonlySecret))
-	// Client with subaccounts
-	clientWithSubAccounts := rest.New(
-		auth.New(
-			ReadonlyKey,
-			ReadonlySecret,
-			auth.SubAccount{
-				UUID:     1,
-				Nickname: "MM",
-			},
-			auth.SubAccount{
-				UUID:     2,
-				Nickname: "Test",
-			},
-		))
-	// switch subaccount
-
-	if wantMainAccount {
-		return client
-	} else if !wantMainAccount {
-		return clientWithSubAccounts
-	} else {
-		return client
-	}
-
-}
+var ClientWithSubAccounts = rest.New(
+	auth.New(
+		ReadonlyKey,
+		ReadonlySecret,
+		auth.SubAccount{
+			UUID:     1,
+			Nickname: "MM",
+		},
+		auth.SubAccount{
+			UUID:     2,
+			Nickname: "Test",
+		},
+	))
+var RestClient = rest.New(auth.New(ReadonlyKey, ReadonlySecret))
 
 func RestActions() {
-	c := LoginRest(true)
-	info, err := c.Information(&account.RequestForInformation{})
+	info, err := RestClient.Information(&account.RequestForInformation{})
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Printf("Account information:\n %v\n", info)
 
-	market, err := c.Markets(&markets.RequestForMarkets{
+	market, err := RestClient.Markets(&markets.RequestForMarkets{
 		ProductCode: "ETH/USD",
 	})
 
@@ -72,7 +56,7 @@ func RestActions() {
 	fmt.Printf("%+v\n", strings.Join(market.Ranking(markets.ALL), "\n"))
 
 	// FundingRate
-	rates, err := c.Rates(&futures.RequestForRates{})
+	rates, err := RestClient.Rates(&futures.RequestForRates{})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -85,9 +69,8 @@ func RestActions() {
 }
 
 func PlaceLimitOrder(market string, price, size float64) {
-	c := LoginRest(true)
 
-	order, err := c.PlaceOrder(&orders.RequestForPlaceOrder{
+	order, err := RestClient.PlaceOrder(&orders.RequestForPlaceOrder{
 		Type:   types.LIMIT,
 		Market: market,
 		Side:   types.BUY,
@@ -107,9 +90,9 @@ func PlaceLimitOrder(market string, price, size float64) {
 }
 
 func SetAccountLeverage() {
-	c := LoginRest(true)
-	// lev, err := c.Leverage(5)
-	lev, err := c.Leverage(&account.RequestForLeverage{
+
+	// lev, err := RestClient.Leverage(5)
+	lev, err := RestClient.Leverage(&account.RequestForLeverage{
 		Leverage: 3,
 	})
 
@@ -122,8 +105,8 @@ func SetAccountLeverage() {
 }
 
 func GetFundingCosts() {
-	c := LoginRest(true)
-	funding, err := c.Funding(&funding.Request{})
+
+	funding, err := RestClient.Funding(&funding.Request{})
 	if err != nil {
 		fmt.Println(fmt.Errorf("ERROR message: %w", err))
 	}
