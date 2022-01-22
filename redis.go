@@ -15,7 +15,8 @@ var RDB = redis.NewClient(&redis.Options{
 
 // Test validity of redis connection.
 func Test(t *testing.T) {
-	testCommand := RDB.Info(RDB.Context())
+	ctx := RDB.Context()
+	testCommand := RDB.Info(ctx)
 
 	fmt.Printf("t: %v\n", t)
 	fmt.Println(testCommand)
