@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 	"net/http"
+	"testing"
 
 	"github.com/go-echarts/go-echarts/v2/charts"
 	"github.com/go-echarts/go-echarts/v2/opts"
@@ -11,10 +13,10 @@ import (
 )
 
 // generate random data for line chart
-func generateLineItems() []opts.LineData {
-	items := make([]opts.LineData, 0)
+func generateKlineItems() []opts.KlineData {
+	items := make([]opts.KlineData, 0)
 	for i := 0; i < 7; i++ {
-		items = append(items, opts.LineData{Value: rand.Intn(300)})
+		items = append(items, opts.KlineData{Value: rand.Intn(300)})
 	}
 	return items
 }
@@ -32,8 +34,6 @@ func httpServer(w http.ResponseWriter, _ *http.Request) {
 
 	// Put data into instance
 	line.SetXAxis([]string{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}).
-		AddSeries("Category A", generateLineItems()).
-		AddSeries("Category B", generateLineItems()).
 		SetSeriesOptions(charts.WithLineChartOpts(opts.LineChart{Smooth: true}))
 	line.Render(w)
 }
@@ -43,10 +43,17 @@ func serveChart() {
 	http.ListenAndServe(":8081", nil)
 }
 
-var request,err = RestClient.Candles(&markets.RequestForCandles{ProductCode: "BTC-PERP",Resolution: 900})
-var kd = [...]opts.KlineData{
-	Name: "BTC-PERP",Value:
+var request, err = RestClient.Candles(&markets.RequestForCandles{ProductCode: "BTC-PERP", Resolution: 900})
+
+func TestReq(t *testing.T) {
+	fmt.Printf("t: %v\n", t)
+	fmt.Println(request)
+	
 }
+
+/* var kd = make([...]opts.KlineData{
+	Name: "BTC-PERP",Value:
+},0)
 func klineChart(w http.ResponseWriter, _ *http.Request) *charts.Kline {
 	kline := charts.NewKLine()
 
@@ -84,3 +91,4 @@ func klineChart(w http.ResponseWriter, _ *http.Request) *charts.Kline {
 	kline.SetXAxis(x).AddSeries("kline", y)
 	return kline
 }
+*/
