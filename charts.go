@@ -44,11 +44,21 @@ func serveChart() {
 }
 
 var request, err = RestClient.Candles(&markets.RequestForCandles{ProductCode: "BTC-PERP", Resolution: 900})
+func parseCandles(data markets.ResponseForCandles) (chartData){
+	for iteration := range data {
+		
+	}
+}
+
+type chartData struct {
+	date string
+	data [4]float64
+}
 
 func TestReq(t *testing.T) {
 	fmt.Printf("t: %v\n", t)
 	fmt.Println(request)
-	
+	fmt.Println()
 }
 
 /* var kd = make([...]opts.KlineData{
