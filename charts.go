@@ -10,6 +10,8 @@ import (
 	"github.com/go-echarts/go-echarts/v2/opts"
 	"github.com/go-echarts/go-echarts/v2/types"
 	"github.com/go-numb/go-ftx/rest/public/markets"
+	"github.com/gookit/color"
+	"github.com/labstack/gommon/color"
 )
 
 // generate random data for line chart
@@ -44,14 +46,21 @@ func serveChart() {
 }
 
 var request, err = RestClient.Candles(&markets.RequestForCandles{ProductCode: "BTC-PERP", Resolution: 900})
-func parseCandles(data markets.ResponseForCandles) (chartData){
-	for iteration := range data {
-		
+func parseCandles(data markets.ResponseForCandles) ([]chartData){
+/* 	candle := &markets.Candle{StartTime: *data[0]}
+ */
+	parsedContent := make([]chartData,0)
+ 	for iteration := range data {
+		parsedContent = append(parsedContent, data[iteration])
+
+	fmt.Println(data[iteration])
+	fmt.Println("Iteration number", color.Magenta(iteration) )
 	}
+	return
 }
 
 type chartData struct {
-	date string
+	date string `time.Time`
 	data [4]float64
 }
 
