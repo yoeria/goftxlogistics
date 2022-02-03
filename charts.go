@@ -54,9 +54,9 @@ func parseCandles(data markets.ResponseForCandles) ([]chartData){
 		parsedContent = append(parsedContent, data[iteration])
 
 	fmt.Println(data[iteration])
-	fmt.Println("Iteration number", color.Magenta(iteration) )
+	fmt.Println("Iteration number", color.RenderString(color.Magenta(iteration))  )
 	}
-	return
+	return parsedContent
 }
 
 type chartData struct {
