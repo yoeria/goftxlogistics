@@ -5,13 +5,13 @@ import (
 	"math/rand"
 	"net/http"
 	"testing"
+	"time"
 
 	"github.com/go-echarts/go-echarts/v2/charts"
 	"github.com/go-echarts/go-echarts/v2/opts"
 	"github.com/go-echarts/go-echarts/v2/types"
 	"github.com/go-numb/go-ftx/rest/public/markets"
 	"github.com/gookit/color"
-	"github.com/labstack/gommon/color"
 )
 
 // generate random data for line chart
@@ -46,21 +46,26 @@ func serveChart() {
 }
 
 var request, err = RestClient.Candles(&markets.RequestForCandles{ProductCode: "BTC-PERP", Resolution: 900})
-func parseCandles(data markets.ResponseForCandles) ([]chartData){
-/* 	candle := &markets.Candle{StartTime: *data[0]}
- */
-	parsedContent := make([]chartData,0)
- 	for iteration := range data {
-		parsedContent = append(parsedContent, data[iteration])
 
-	fmt.Println(data[iteration])
-	fmt.Println("Iteration number", color.Magenta.Render((iteration))  )
+func parseCandles(data markets.ResponseForCandles) []chartData {
+	parsedContent := make([]chartData, 0)
+	for iteration := range parsedContent {
+		// Shorter decleration
+		kd := data[iteration]
+		// Fill date (time) field for iteration
+		parsedContent[iteration].date = kd.StartTime
+		// Fill data fields for iteration
+		// 'open', 'close', 'high', 'low'
+		parsedContent[iteration].data = [4]float64{kd.Open, kd.Close, kd.High, kd.Low}
+
+		fmt.Println(data[iteration])
+		fmt.Println("Iteration number", color.Magenta.Render((iteration)))
 	}
 	return parsedContent
 }
 
 type chartData struct {
-	date string `time.Time`
+	date time.Time
 	data [4]float64
 }
 
