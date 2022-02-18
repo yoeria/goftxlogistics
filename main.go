@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"strconv"
-	"testing"
 	"time"
 
 	"github.com/sdcoffey/big"
@@ -39,5 +38,4 @@ func main() {
 	fmt.Println("Moving Average:\t", movingAverage.Calculate(0).FormattedString(2))
 
 	GetFundingCosts()
-	TestReq(&testing.T{})
 }

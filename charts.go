@@ -1,17 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"math/rand"
 	"net/http"
-	"testing"
-	"time"
 
 	"github.com/go-echarts/go-echarts/v2/charts"
 	"github.com/go-echarts/go-echarts/v2/opts"
 	"github.com/go-echarts/go-echarts/v2/types"
 	"github.com/go-numb/go-ftx/rest/public/markets"
-	"github.com/gookit/color"
 )
 
 // generate random data for line chart
@@ -53,41 +49,28 @@ func parseCandles(data markets.ResponseForCandles) []chartData {
 		// Shorter decleration
 		kd := data[iteration]
 		// Fill date (time) field for iteration
-		parsedContent[iteration].date = kd.StartTime
+		parsedContent[iteration].date = kd.StartTime.Format("2006-01-02 15:04:05")
 		// Fill data fields for iteration
 		// 'open', 'close', 'high', 'low'
 		parsedContent[iteration].data = [4]float64{kd.Open, kd.Close, kd.High, kd.Low}
 
-		fmt.Println(data[iteration])
-		fmt.Println("Iteration number", color.Magenta.Render((iteration)))
+		//fmt.Println("Iteration number", color.Magenta.Render((iteration)))
 	}
 	return parsedContent
 }
 
 type chartData struct {
-	date time.Time
+	date string
 	data [4]float64
 }
 
-func TestReq(t *testing.T) {
-	fmt.Printf("t: %v\n", t)
-	fmt.Println(request)
-	fmt.Println()
-}
-
-/* var kd = make([...]opts.KlineData{
-	Name: "BTC-PERP",Value:
-},0)
-func klineChart(w http.ResponseWriter, _ *http.Request) *charts.Kline {
+func klineChart(_ http.ResponseWriter, _ *http.Request) *charts.Kline {
 	kline := charts.NewKLine()
 
 	x := make([]string, 0)
+	//kd := parseCandles(*request)
+	// []opts.KlineData has a structure of OCLH
 	y := make([]opts.KlineData, 0)
-	for i := 0; i < len(kd); i++ {
-		x = append(x, kd[i].date)
-		y = append(y, opts.KlineData{Value: kd[i].data})
-	}
-
 	kline.SetGlobalOptions(
 		charts.WithTitleOpts(opts.Title{
 			Title: "DataZoom(inside&slider)",
@@ -112,7 +95,6 @@ func klineChart(w http.ResponseWriter, _ *http.Request) *charts.Kline {
 		}),
 	)
 
-	kline.SetXAxis(x).AddSeries("kline", y)
+	kline.SetXAxis(x).AddSeries("Candlestick (Kline) Chart | OHLC", y)
 	return kline
 }
-*/
