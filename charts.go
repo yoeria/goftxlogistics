@@ -1,15 +1,15 @@
 package main
 
 import (
-	"math/rand"
 	"net/http"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/go-echarts/go-echarts/v2/charts"
 	"github.com/go-echarts/go-echarts/v2/opts"
-	"github.com/go-echarts/go-echarts/v2/types"
 	"github.com/go-numb/go-ftx/rest/public/markets"
 )
 
+/*
 // generate random data for line chart
 func generateKlineItems() []opts.KlineData {
 	items := make([]opts.KlineData, 0)
@@ -19,7 +19,7 @@ func generateKlineItems() []opts.KlineData {
 	return items
 }
 
-func httpServer(w http.ResponseWriter, _ *http.Request) {
+ func httpServer(w http.ResponseWriter, _ *http.Request) {
 	// create a new line instance
 	line := charts.NewLine()
 	// set some global options like Title/Legend/ToolTip or anything else
@@ -34,46 +34,56 @@ func httpServer(w http.ResponseWriter, _ *http.Request) {
 	line.SetXAxis([]string{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}).
 		SetSeriesOptions(charts.WithLineChartOpts(opts.LineChart{Smooth: true}))
 	line.Render(w)
-}
+} */
 
 func serveChart() {
-	http.HandleFunc("/", httpServer)
+	http.HandleFunc("/", klineChart)
 	http.ListenAndServe(":8081", nil)
 }
 
 var request, err = RestClient.Candles(&markets.RequestForCandles{ProductCode: "BTC-PERP", Resolution: 900})
-
-func parseCandles(data markets.ResponseForCandles) []chartData {
-	parsedContent := make([]chartData, 0)
-	for iteration := range parsedContent {
-		// Shorter decleration
-		kd := data[iteration]
-		// Fill date (time) field for iteration
-		parsedContent[iteration].date = kd.StartTime.Format("2006-01-02 15:04:05")
-		// Fill data fields for iteration
-		// 'open', 'close', 'high', 'low'
-		parsedContent[iteration].data = [4]float64{kd.Open, kd.Close, kd.High, kd.Low}
-
-		//fmt.Println("Iteration number", color.Magenta.Render((iteration)))
-	}
-	return parsedContent
-}
 
 type chartData struct {
 	date string
 	data [4]float64
 }
 
-func klineChart(_ http.ResponseWriter, _ *http.Request) *charts.Kline {
+func parseCandles(data markets.ResponseForCandles) *[]chartData {
+	parsedData := make([]chartData, 0)
+	for i := 0; i < data.Len(); i++ {
+		// Shorter declaration
+		kd := data[i]
+		// Fill date (time) field for iteration
+		parsedData[i].date = kd.StartTime.Format("2006-01-02 15:04:05")
+		// Fill data fields for iteration
+		// 'open', 'close', 'high', 'low'
+		parsedData[i].data = [4]float64{kd.Open, kd.Close, kd.High, kd.Low}
+	}
+	return &parsedData
+}
+
+func klineChart(w http.ResponseWriter, _ *http.Request) {
 	kline := charts.NewKLine()
 
+	// X axis requires a slice of strings
 	x := make([]string, 0)
-	//kd := parseCandles(*request)
 	// []opts.KlineData has a structure of OCLH
 	y := make([]opts.KlineData, 0)
+
+	usableData := *parseCandles(*request)
+	spew.Dump(usableData)
+	for i := range usableData {
+		y[i].Value = usableData[i]
+		x[i] = usableData[i].date
+	}
+
+	// Logging purposes
+	//spew.Dump(x,y)
+
+	chartTitle := "Candlestick (Kline) Chart | OHLC"
 	kline.SetGlobalOptions(
 		charts.WithTitleOpts(opts.Title{
-			Title: "DataZoom(inside&slider)",
+			Title: chartTitle,
 		}),
 		charts.WithXAxisOpts(opts.XAxis{
 			SplitNumber: 20,
@@ -95,6 +105,6 @@ func klineChart(_ http.ResponseWriter, _ *http.Request) *charts.Kline {
 		}),
 	)
 
-	kline.SetXAxis(x).AddSeries("Candlestick (Kline) Chart | OHLC", y)
-	return kline
+	kline.SetXAxis(x).AddSeries(chartTitle, y)
+	kline.Render(w)
 }
