@@ -105,7 +105,6 @@ func SetAccountLeverage() {
 }
 
 func GetFundingCosts() {
-
 	funding, err := RestClient.Funding(&funding.Request{})
 	if err != nil {
 		fmt.Println(fmt.Errorf("ERROR message: %w", err))
