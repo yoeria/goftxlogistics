@@ -50,21 +50,12 @@ func MoveTimestamp(data []opts.KlineData) (x []string) {
 
 func KlineChart(w http.ResponseWriter, _ *http.Request) {
 	kline := charts.NewKLine()
+	dataRequest := *ParseCandles(*request)
 
-	// X axis requires a slice of strings
-	x := make([]string, 0)
+	// X axis requires a slice of strings (in this case containg the date)
+	x := MoveTimestamp(dataRequest)
 	// []opts.KlineData has a structure of OCLH
-	y := make([]opts.KlineData, 0)
-
-	usableData := *ParseCandles(*request)
-	spew.Dump(usableData)
-	for i := range usableData {
-		y[i].Value = usableData[i]
-		x[i] = usableData[i].date
-	}
-
-	// Logging purposes
-	//spew.Dump(x,y)
+	y := dataRequest
 
 	chartTitle := "Candlestick (Kline) Chart | OHLC"
 	kline.SetGlobalOptions(
