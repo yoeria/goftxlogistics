@@ -3,12 +3,10 @@ package main
 import (
 	"net/http"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/go-echarts/go-echarts/v2/charts"
 	"github.com/go-echarts/go-echarts/v2/opts"
 	"github.com/go-numb/go-ftx/rest/public/markets"
 )
-
 
 func serveChart() {
 	http.HandleFunc("/", KlineChart)
@@ -79,6 +77,9 @@ func KlineChart(w http.ResponseWriter, _ *http.Request) {
 			Start:      50,
 			End:        100,
 			XAxisIndex: []int{0},
+		}),
+		charts.WithVisualMapOpts(opts.VisualMap{
+			Calculable: true,
 		}),
 	)
 
