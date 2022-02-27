@@ -78,11 +78,30 @@ func KlineChart(w http.ResponseWriter, _ *http.Request) {
 			End:        100,
 			XAxisIndex: []int{0},
 		}),
-		charts.WithVisualMapOpts(opts.VisualMap{
-			Calculable: true,
-		}),
 	)
 
-	kline.SetXAxis(x).AddSeries(chartTitle, y)
+	kline.SetXAxis(x).AddSeries(chartTitle, y).SetSeriesOptions(
+			charts.WithMarkPointNameTypeItemOpts(opts.MarkPointNameTypeItem{
+				Name:     "highest value",
+				Type:     "max",
+				ValueDim: "highest",
+			}),
+			charts.WithMarkPointNameTypeItemOpts(opts.MarkPointNameTypeItem{
+				Name:     "lowest value",
+				Type:     "min",
+				ValueDim: "lowest",
+			}),
+			charts.WithMarkPointStyleOpts(opts.MarkPointStyle{
+				Label: &opts.Label{
+					Show: true,
+				},
+			}),
+			charts.WithItemStyleOpts(opts.ItemStyle{
+				Color:        "#ec0000",
+				Color0:       "#00da3c",
+				BorderColor:  "#8A0000",
+				BorderColor0: "#008F28",
+			}),
+		)
 	kline.Render(w)
 }
