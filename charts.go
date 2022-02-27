@@ -28,12 +28,12 @@ func ParseCandles(data []markets.Candle) *[]opts.KlineData {
 		// Shorter declaration
 		kd := data[i]
 		/*
-		Fill data fields for iteration
-		 'open', 'close', 'high', 'low'
-		Fill date (time) in opts.KlineData{Name} field
+			Fill data fields for iteration
+			 'open', 'close', 'high', 'low'
+			Fill date (time) in opts.KlineData{Name} field
 		*/
 		items = append(items, opts.KlineData{
-			Name: kd.StartTime.Format("2006-01-02 15:04:05"),
+			Name:  kd.StartTime.Format("2006-01-02 15:04:05"),
 			Value: [4]float64{kd.Open, kd.Close, kd.High, kd.Low}})
 	}
 
