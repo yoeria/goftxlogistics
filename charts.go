@@ -9,32 +9,6 @@ import (
 	"github.com/go-numb/go-ftx/rest/public/markets"
 )
 
-/*
-// generate random data for line chart
-func generateKlineItems() []opts.KlineData {
-	items := make([]opts.KlineData, 0)
-	for i := 0; i < 7; i++ {
-		items = append(items, opts.KlineData{Value: rand.Intn(300)})
-	}
-	return items
-}
-
- func httpServer(w http.ResponseWriter, _ *http.Request) {
-	// create a new line instance
-	line := charts.NewLine()
-	// set some global options like Title/Legend/ToolTip or anything else
-	line.SetGlobalOptions(
-		charts.WithInitializationOpts(opts.Initialization{Theme: types.ThemeWesteros}),
-		charts.WithTitleOpts(opts.Title{
-			Title:    "Line example in Westeros theme",
-			Subtitle: "Line chart rendered by the http server this time",
-		}))
-
-	// Put data into instance
-	line.SetXAxis([]string{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}).
-		SetSeriesOptions(charts.WithLineChartOpts(opts.LineChart{Smooth: true}))
-	line.Render(w)
-} */
 
 func serveChart() {
 	http.HandleFunc("/", KlineChart)
