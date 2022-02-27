@@ -36,7 +36,12 @@ func ParseCandles(data markets.ResponseForCandles) (*[]chartData, *[]opts.KlineD
 		parsedData[i].data = [4]float64{kd.Open, kd.Close, kd.High, kd.Low}
 	}
 
-	return &parsedData, &items
+func MoveTimestamp(data []opts.KlineData) (x []string) {
+	for i := range data {
+		x = append(x, data[i].Name)
+	}
+	// naked return
+	return
 }
 
 func KlineChart(w http.ResponseWriter, _ *http.Request) {
