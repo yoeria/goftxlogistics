@@ -45,7 +45,8 @@ func MoveTimestamp(data []opts.KlineData) (x []string) {
 	// naked return
 	return
 }
-
+/* Kline example:
+https://github.com/go-echarts/examples/blob/master/examples/kline.go */
 func KlineChart(w http.ResponseWriter, _ *http.Request) {
 	kline := charts.NewKLine()
 	dataRequest := *ParseCandles(*request)
