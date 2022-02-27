@@ -12,7 +12,7 @@ import (
 func TestReq(t *testing.T) {
 	fmt.Printf("t: %v\n", t)
 	color.Set(color.HiGreen, color.BgBlack)
-	spew.Dump(request)
+	spew.Dump(*ParseCandles(*request))
 	color.Reset()
 	fmt.Println()
 }
