@@ -22,19 +22,23 @@ type chartData struct {
 	data [4]float64
 }
 
-func ParseCandles(data markets.ResponseForCandles) (*[]chartData, *[]opts.KlineData) {
-	parsedData := make([]chartData, 0)
+func ParseCandles(data []markets.Candle) *[]opts.KlineData {
 	items := make([]opts.KlineData, 0)
-	for i := 0; i < data.Len(); i++ {
+	for i := range data {
 		// Shorter declaration
 		kd := data[i]
-		items = append(items, opts.KlineData{Value: [4]float64{kd.Open, kd.Close, kd.High, kd.Low}})
-		// Fill date (time) field for iteration
-		parsedData[i].date = kd.StartTime.Format("2006-01-02 15:04:05")
-		// Fill data fields for iteration
-		// 'open', 'close', 'high', 'low'
-		parsedData[i].data = [4]float64{kd.Open, kd.Close, kd.High, kd.Low}
+		/*
+		Fill data fields for iteration
+		 'open', 'close', 'high', 'low'
+		Fill date (time) in opts.KlineData{Name} field
+		*/
+		items = append(items, opts.KlineData{
+			Name: kd.StartTime.Format("2006-01-02 15:04:05"),
+			Value: [4]float64{kd.Open, kd.Close, kd.High, kd.Low}})
 	}
+
+	return &items
+}
 
 func MoveTimestamp(data []opts.KlineData) (x []string) {
 	for i := range data {
