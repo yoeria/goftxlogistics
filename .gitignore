@@ -17,3 +17,4 @@
 
 # macOS specific
 *.DS_Store
+strat.jl
