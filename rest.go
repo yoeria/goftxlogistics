@@ -19,7 +19,9 @@ import (
 	"github.com/labstack/gommon/log"
 )
 
-var ClientWithSubAccounts = rest.New(
+var (
+	RestClient = rest.New(auth.New(ReadonlyKey, ReadonlySecret))
+	ClientWithSubAccounts = rest.New(
 	auth.New(
 		ReadonlyKey,
 		ReadonlySecret,
@@ -32,23 +34,14 @@ var ClientWithSubAccounts = rest.New(
 			Nickname: "Test",
 		},
 	))
-var RestClient = rest.New(auth.New(ReadonlyKey, ReadonlySecret))
+)
 
 func RestActions() {
-	info, err := RestClient.Information(&account.RequestForInformation{})
-	if err != nil {
-		log.Fatal(err)
-	}
+	info := getAccountInfo()
 
 	fmt.Printf("Account information:\n %v\n", info)
 
-	market, err := RestClient.Markets(&markets.RequestForMarkets{
-		ProductCode: "ETH/USD",
-	})
-
-	if err != nil {
-		log.Fatal(err)
-	}
+	market := getMarkets()
 
 	// products List
 	fmt.Printf("%+v\n", strings.Join(market.List(), "\n"))
@@ -66,6 +59,25 @@ func RestActions() {
 	for _, v := range *rates {
 		fmt.Printf("%s			%s		%s\n", humanize.Commaf(v.Rate), v.Future, v.Time.String())
 	}
+}
+
+func getMarkets() *markets.ResponseForMarkets {
+	market, err := RestClient.Markets(&markets.RequestForMarkets{
+	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	return market
+}
+
+func getAccountInfo() *account.ResponseForInformation {
+	info, err := RestClient.Information(&account.RequestForInformation{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	//	fmt.Printf("Account information:\n %v\n", info)
+	return info
 }
 
 func PlaceLimitOrder(market string, price, size float64) {
