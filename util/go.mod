@@ -7,7 +7,7 @@ require (
 	github.com/schigh/slice v1.0.2
 	github.com/sdcoffey/big v0.7.0
 	github.com/sdcoffey/techan v0.12.1
-	github.com/yoeria/goftxlogistics v0.0.0
+	github.com/yoeria/goftxlogistics v0.0.0-00010101000000-000000000000
 )
 
 require (

@@ -1,11 +1,23 @@
 package util
 
-import main "github.com/yoeria/goftxlogistics"
+import (
+	"fmt"
 
-var (
-	RC = main.RestClient
+	"github.com/go-numb/go-ftx/rest/public/markets"
+	goftxlogistics "github.com/yoeria/goftxlogistics"
 )
 
-func init() {
+var (
+	RC = goftxlogistics.RestClient
+)
 
+// Gets the amount the account has made a trade (open-close)
+func GetTradeAmount() int {
+	trades, err := RC.Trades(&markets.RequestForTrades{})
+	if err != nil {
+		fmt.Print(err)
+	}
+	tradeRange := *trades
+	length := len(tradeRange)
+	return length
 }

@@ -18,7 +18,7 @@ func ParseSeries(data []markets.Candle) (series *techan.TimeSeries) {
 		sc[i].MinPrice = big.NewDecimal(d[i].Low)
 		sc[i].MaxPrice = big.NewDecimal(d[i].High)
 		sc[i].Volume = big.NewDecimal(d[i].Volume)
-		sc[i].TradeCount = uint(getTradeAmount())
+		sc[i].TradeCount = uint(GetTradeAmount())
 	}
 	return
 }
