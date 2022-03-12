@@ -5,11 +5,11 @@ import (
 	"sort"
 
 	"github.com/go-numb/go-ftx/rest/public/futures"
-	"github.com/schigh/slice"
+	"github.com/yoeria/goftxlogistics/rest"
 )
 
 var (
-	rc = RestClient
+	rc = rest.RestClient
 )
 
 type TradableFutures struct {
@@ -38,7 +38,10 @@ func CurrentPotentFutures(perpetual bool) (list []*TradableFutures) {
 
 	// work todo???
 	for i := range ret {
-
+		list[i].Name = ret[i].Name
+		list[i].VolumeUsd24H = ret[i].VolumeUsd24H
+		list[i].Change1H = ret[i].Change1H
+		list[i].Change24H = ret[i].Change24H
 	}
 
 	log.Println(len(*getFutures))

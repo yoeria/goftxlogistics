@@ -11,7 +11,6 @@ require (
 	github.com/gookit/color v1.5.0
 	github.com/joho/godotenv v1.4.0
 	github.com/labstack/gommon v0.3.1
-	github.com/schigh/slice v1.0.2
 	github.com/sdcoffey/big v0.7.0
 	github.com/sdcoffey/techan v0.12.1
 	google.golang.org/grpc v1.43.0
@@ -48,6 +47,7 @@ require (
 )
 
 replace (
+	github.com/yoeria/goftxlogistics/db => ./db
 	github.com/yoeria/goftxlogistics/protos => ./protos
 	github.com/yoeria/goftxlogistics/strategies => ./strategies
 	github.com/yoeria/goftxlogistics/util => ./util

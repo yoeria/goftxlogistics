@@ -7,10 +7,11 @@ import (
 
 	"github.com/sdcoffey/big"
 	"github.com/sdcoffey/techan"
+	"github.com/yoeria/goftxlogistics/rest"
 )
 
 func main() {
-	LoadCreds()
+	rest.LoadCreds()
 	series := techan.NewTimeSeries()
 
 	// fetch this from your preferred exchange
@@ -37,5 +38,5 @@ func main() {
 
 	fmt.Println("Moving Average:\t", movingAverage.Calculate(0).FormattedString(2))
 
-	GetFundingCosts()
+	rest.GetFundingCosts()
 }

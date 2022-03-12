@@ -6,6 +6,7 @@ import (
 	"github.com/go-echarts/go-echarts/v2/charts"
 	"github.com/go-echarts/go-echarts/v2/opts"
 	"github.com/go-numb/go-ftx/rest/public/markets"
+	"github.com/yoeria/goftxlogistics/rest"
 )
 
 func serveChart() {
@@ -13,7 +14,7 @@ func serveChart() {
 	http.ListenAndServe(":8081", nil)
 }
 
-var request, err = RestClient.Candles(&markets.RequestForCandles{ProductCode: "BTC-PERP", Resolution: 900})
+var request, err = rest.RestClient.Candles(&markets.RequestForCandles{ProductCode: "BTC-PERP", Resolution: 900})
 
 type chartData struct {
 	date string
