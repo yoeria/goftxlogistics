@@ -4,7 +4,6 @@ import (
 	"github.com/go-numb/go-ftx/rest/public/markets"
 	"github.com/sdcoffey/big"
 	"github.com/sdcoffey/techan"
-	"github.com/schigh/slice"
 )
 
 func ParseSeries(data []markets.Candle) (series *techan.TimeSeries) {

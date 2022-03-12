@@ -4,11 +4,11 @@ import (
 	"fmt"
 
 	"github.com/go-numb/go-ftx/rest/public/markets"
-	goftxlogistics "github.com/yoeria/goftxlogistics"
+	"github.com/yoeria/goftxlogistics/rest"
 )
 
 var (
-	RC = goftxlogistics.RestClient
+	RC = rest.RestClient
 )
 
 // Gets the amount the account has made a trade (open-close)
