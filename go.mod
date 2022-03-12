@@ -11,6 +11,7 @@ require (
 	github.com/gookit/color v1.5.0
 	github.com/joho/godotenv v1.4.0
 	github.com/labstack/gommon v0.3.1
+	github.com/schigh/slice v1.0.2
 	github.com/sdcoffey/big v0.7.0
 	github.com/sdcoffey/techan v0.12.1
 	google.golang.org/grpc v1.43.0
@@ -46,4 +47,13 @@ require (
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
 
-replace github.com/yoeria/goftxlogistics/protos => ./protos
+replace (
+	github.com/yoeria/goftxlogistics/protos => ./protos
+	github.com/yoeria/goftxlogistics/strategies => ./strategies
+	github.com/yoeria/goftxlogistics/util => ./util
+)
+
+exclude (
+	github.com/yoeria/goftxlogistics/protos v0.0.0
+	github.com/yoeria/goftxlogistics/strategies v0.0.0
+)
