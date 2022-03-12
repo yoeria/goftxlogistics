@@ -1,4 +1,4 @@
-package main
+package strategies
 
 import (
 	"github.com/sdcoffey/techan"
