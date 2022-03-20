@@ -6,18 +6,15 @@ import (
 
 // Indicator average ratio of at least 0.8 (80%) should start buying cycle
 // If calculateSuccessRatio >= 0.8 -> trigger an order
-func calculateSuccessRatio(params) {
+func calculateSuccessRatio(_ chan int) {
 
-for {
-	select {
-			case result := <- channel:
-
+	for {
+		select {}
 	}
-}
 
 }
 
 // Calculate FAST StochasticRSI values
-func calcFastStochRSI(series *techan.TimeSeries) {
-	techan.NewFastStochasticIndicator(series,)
+func calcFastStochRSI(series *techan.TimeSeries, timeframe int) {
+	techan.NewFastStochasticIndicator(series, timeframe)
 }
