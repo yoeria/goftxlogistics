@@ -51,6 +51,7 @@ replace (
 	github.com/yoeria/goftxlogistics/protos => ./protos
 	github.com/yoeria/goftxlogistics/strategies => ./strategies
 	github.com/yoeria/goftxlogistics/util => ./util
+	github.com/yoeria/goftxlogistics/structs => ./structs
 )
 
 exclude (
