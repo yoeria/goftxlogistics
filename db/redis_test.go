@@ -18,7 +18,7 @@ func Test(t *testing.T) {
 	fmt.Println(testCommand)
 }
 
-func AppendTradeToTrades(t *testing.T) {
+func TestAppendTradeToTrades(t *testing.T) {
 	ctx := RDB.Context()
 	count := 100
 	for i := 0; i < count; i++ {
