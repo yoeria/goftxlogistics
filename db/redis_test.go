@@ -22,7 +22,7 @@ func TestAppendTradeToTrades(t *testing.T) {
 	ctx := RDB.Context()
 	count := 100
 	for i := 0; i < count; i++ {
-		RDB.ZAdd(ctx, "TradesTesting", &redis.Z{
+		add := RDB.ZAdd(ctx, "TradesTesting", &redis.Z{
 			Score: rand.Float64(),
 			Member: structs.Trade{
 				DatetimeEnter: "2022-01-01",
@@ -36,6 +36,10 @@ func TestAppendTradeToTrades(t *testing.T) {
 				Fees:          float64(i ^ 2),
 			},
 		})
+		if add.Err().Error() != "" {
+			fmt.Println("error triggered:")
+			fmt.Println(add.Err().Error())
+		}
 
 	}
 
