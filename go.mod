@@ -1,6 +1,6 @@
 module github.com/yoeria/goftxlogistics
 
-go 1.17
+go 1.18
 
 require (
 	github.com/davecgh/go-spew v1.1.1
@@ -50,8 +50,8 @@ replace (
 	github.com/yoeria/goftxlogistics/db => ./db
 	github.com/yoeria/goftxlogistics/protos => ./protos
 	github.com/yoeria/goftxlogistics/strategies => ./strategies
-	github.com/yoeria/goftxlogistics/util => ./util
 	github.com/yoeria/goftxlogistics/structs => ./structs
+	github.com/yoeria/goftxlogistics/util => ./util
 )
 
 exclude (
