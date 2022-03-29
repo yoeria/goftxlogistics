@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"math/rand"
 	"testing"
+	"encoding"
 
 	"github.com/go-redis/redis/v8"
+	"github.com/gookit/color"
 	"github.com/yoeria/goftxlogistics/structs"
 )
 
@@ -19,6 +21,7 @@ func Test(t *testing.T) {
 }
 
 func TestAppendTradeToTrades(t *testing.T) {
+	enc := encoding.
 	ctx := RDB.Context()
 	count := 100
 	for i := 0; i < count; i++ {
@@ -37,8 +40,9 @@ func TestAppendTradeToTrades(t *testing.T) {
 			},
 		})
 		if add.Err().Error() != "" {
-			fmt.Println("error triggered:")
+			color.Redln("error triggered:")
 			fmt.Println(add.Err().Error())
+			t.Error()
 		}
 
 	}
