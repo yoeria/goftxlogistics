@@ -1,5 +1,9 @@
 package structs
 
+import (
+	"encoding/json"
+)
+
 /*
 Used to keep track of trades made by the system
 
@@ -24,4 +28,12 @@ type Trade struct {
 	WalletNet float64
 	// Total costs to platform for trade (funding included if applicable)
 	Fees float64
+}
+
+func (t Trade) MarshalBinary() ([]byte, error) {
+	return json.Marshal(t)
+}
+
+func (t Trade) UnmarshalBinary(data []byte) error {
+	return json.Unmarshal(data, &t)
 }
