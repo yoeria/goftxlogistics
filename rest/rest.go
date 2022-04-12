@@ -2,7 +2,6 @@ package rest
 
 import (
 	"fmt"
-	//"log"
 
 	"sort"
 	"strings"
