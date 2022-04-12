@@ -14,7 +14,7 @@ func WebsocketActions() {
 
 	ch := make(chan realtime.Response)
 	go realtime.Connect(ctx, ch, []string{"ticker"}, []string{"BTC-PERP"}, nil)
-	go rest.LoadCreds()
+	go rest.LoadCreds("./rest/creds.env")
 	go realtime.ConnectForPrivate(ctx, ch, rest.ReadonlyKey, rest.ReadonlySecret, []string{"orders", "fills"}, nil)
 
 	for v := range ch {

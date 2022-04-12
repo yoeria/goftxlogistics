@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	rest.LoadCreds()
+	rest.LoadCreds("./rest/creds.env")
 	series := techan.NewTimeSeries()
 
 	// fetch this from your preferred exchange

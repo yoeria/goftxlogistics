@@ -8,9 +8,11 @@ import (
 )
 
 // Give "key" or "secret" as argument for desired return value
-func LoadCreds() {
-
-	err := dotenv.Load("./creds.env")
+func LoadCreds(relativeFileLocation string) {
+	if relativeFileLocation == "" {
+		relativeFileLocation = "./creds.env"
+	}
+	err := dotenv.Load(relativeFileLocation)
 	if err != nil {
 		log.Fatal("Error loading creds.env file")
 	}
