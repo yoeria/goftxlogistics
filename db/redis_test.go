@@ -41,7 +41,15 @@ func TestAppendTradeToTrades(t *testing.T) {
 			Score:  rand.Float64(),
 			Member: byteSlice,
 		})
-		if add.Err().Error() != "" {
+
+		result, err := add.Result()
+		fmt.Println(string(rune(result)))
+		if result != 0 {
+			color.Errorln(err)
+			t.Error()
+		}
+
+		if add.Err() != nil {
 			color.Redln("error triggered:")
 			fmt.Println(add.Err().Error())
 			t.Error()
