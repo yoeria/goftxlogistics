@@ -7,7 +7,7 @@ import (
 	dotenv "github.com/joho/godotenv"
 )
 
-// Give "key" or "secret" as argument for desired return value
+// THIS FUNCTION NEEDS TO BE AMENDED OR REPLACED BECAUSE OF *util/find.go*
 func LoadCreds(relativeFileLocation string) {
 	if relativeFileLocation == "" {
 		relativeFileLocation = "./creds.env"
