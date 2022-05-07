@@ -59,5 +59,4 @@ replace (
 
 exclude (
 	github.com/yoeria/goftxlogistics/protos v0.0.0
-	github.com/yoeria/goftxlogistics/strategies v0.0.0
 )
