@@ -1,6 +1,7 @@
 package strategies
 
 import (
+	talib "github.com/markcheno/go-talib"
 	"github.com/sdcoffey/techan"
 )
 
@@ -14,7 +15,16 @@ func calculateSuccessRatio(_ chan int) {
 
 }
 
-// Calculate FAST StochasticRSI values
-func calcFastStochRSI(series *techan.TimeSeries, timeframe int) {
+// Calculate FAST Stochastic values
+func calcFastStoch(series *techan.TimeSeries, timeframe int) {
 	techan.NewFastStochasticIndicator(series, timeframe)
+
+}
+
+func calcStochRSI(inReal []float64, timeframe, kPeriod, dPeriod int, maType talib.MaType) ([]float64, []float64) {
+	return talib.StochRsi(inReal, timeframe, kPeriod, dPeriod, maType)
+}
+
+func calcEMA() {
+	//techan.NewEMAIndicator()
 }

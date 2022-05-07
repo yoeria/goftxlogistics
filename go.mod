@@ -11,6 +11,7 @@ require (
 	github.com/gookit/color v1.5.0
 	github.com/joho/godotenv v1.4.0
 	github.com/labstack/gommon v0.3.1
+	github.com/markcheno/go-talib v0.0.0-20190307022042-cd53a9264d70
 	github.com/sdcoffey/big v0.7.0
 	github.com/sdcoffey/techan v0.12.1
 	google.golang.org/grpc v1.43.0
