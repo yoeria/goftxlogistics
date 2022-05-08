@@ -32,8 +32,8 @@ func calcStochRSI(inReal []float64, timeframe, kPeriod, dPeriod int, maType tali
 func StrategyEMA(series *t.TimeSeries) {
 	closePriceIndicator := t.NewClosePriceIndicator(series)
 	indicator5 := t.NewEMAIndicator(closePriceIndicator, 5)
-//	indicator8 := t.NewEMAIndicator(closePriceIndicator, 8)
-//	indicator13 := t.NewEMAIndicator(closePriceIndicator, 13)
+	//	indicator8 := t.NewEMAIndicator(closePriceIndicator, 8)
+	//	indicator13 := t.NewEMAIndicator(closePriceIndicator, 13)
 
 	// record trades on this object
 	record := t.NewTradingRecord()
@@ -58,5 +58,5 @@ func StrategyEMA(series *t.TimeSeries) {
 	}
 
 	strategy.ShouldEnter(0, record) // returns
-	strategy.ShouldExit(0,record)
+	strategy.ShouldExit(0, record)  // returns
 }
