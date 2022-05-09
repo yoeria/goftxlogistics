@@ -1,7 +1,6 @@
 package strategies
 
 import (
-	talib "github.com/markcheno/go-talib"
 	t "github.com/sdcoffey/techan"
 )
 
@@ -13,16 +12,6 @@ func calculateSuccessRatio(_ chan int) {
 		select {}
 	}
 
-}
-
-// Calculate FAST Stochastic values
-func calcFastStoch(series *t.TimeSeries, timeframe int) {
-	t.NewFastStochasticIndicator(series, timeframe)
-
-}
-
-func calcStochRSI(inReal []float64, timeframe, kPeriod, dPeriod int, maType talib.MaType) ([]float64, []float64) {
-	return talib.StochRsi(inReal, timeframe, kPeriod, dPeriod, maType)
 }
 
 /*
