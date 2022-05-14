@@ -24,19 +24,11 @@ func main() {
 		start, _ := strconv.ParseInt(datum[0], 10, 64)
 		period := techan.NewTimePeriod(time.Unix(start, 0), time.Hour*24)
 
-		candle := techan.NewCandle(period)
-		candle.OpenPrice = big.NewFromString(datum[1])
-		candle.ClosePrice = big.NewFromString(datum[2])
-		candle.MaxPrice = big.NewFromString(datum[3])
-		candle.MinPrice = big.NewFromString(datum[4])
+func main() {
+	//login
+	rest.LoadCreds("./rest/creds.env")
 
-		series.AddCandle(candle)
-	}
 
-	closePrices := techan.NewClosePriceIndicator(series)
-	movingAverage := techan.NewEMAIndicator(closePrices, 10) // Create an exponential moving average with a window of 10
+	
 
-	fmt.Println("Moving Average:\t", movingAverage.Calculate(0).FormattedString(2))
-
-	rest.GetFundingCosts()
 }
