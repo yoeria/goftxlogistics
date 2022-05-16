@@ -1,4 +1,4 @@
-package util
+package main
 
 import (
 	"github.com/go-numb/go-ftx/rest/public/markets"

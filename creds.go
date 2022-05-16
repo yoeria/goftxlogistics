@@ -5,13 +5,12 @@ import (
 	"os"
 
 	dotenv "github.com/joho/godotenv"
-	"github.com/yoeria/goftxlogistics/util"
 )
 
 // Loads credentials from file into process environment variables \n
 //
 func LoadCreds(root string) (fileLocation string) {
-	fileLocation, err := util.FindFile(root, "creds.env")
+	fileLocation, err := FindFile(root, "creds.env")
 	if err != nil {
 		return fileLocation
 	}
