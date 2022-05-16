@@ -5,11 +5,10 @@ import (
 	"sort"
 
 	"github.com/go-numb/go-ftx/rest/public/futures"
-	"github.com/yoeria/goftxlogistics/rest"
 )
 
 var (
-	rc = rest.RestClient
+	rc = RestClient
 )
 
 type TradableFutures struct {
@@ -21,7 +20,7 @@ type TradableFuturesSlice []TradableFutures
 
 func (in *TradableFuturesSlice) Sort() (ret []TradableFutures) {
 	inn := *in
-	 sort.SliceStable(*in,
+	sort.SliceStable(*in,
 		func(i int, j int) bool { return inn[i].VolumeUsd24H < inn[j].VolumeUsd24H })
 	ret = *in
 	return
@@ -48,7 +47,6 @@ func CurrentPotentFutures(perpetual bool) (list []*TradableFutures) {
 	log.Println(len(list))
 	return list
 }
-
 
 func getFutureList(perpetual bool, rangeFutures futures.ResponseForFutures, list []futures.FutureForList) []futures.FutureForList {
 	if perpetual {

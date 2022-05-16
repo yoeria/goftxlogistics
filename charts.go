@@ -6,7 +6,6 @@ import (
 	"github.com/go-echarts/go-echarts/v2/charts"
 	"github.com/go-echarts/go-echarts/v2/opts"
 	"github.com/go-numb/go-ftx/rest/public/markets"
-	"github.com/yoeria/goftxlogistics/rest"
 )
 
 func serveChart() {
@@ -14,7 +13,7 @@ func serveChart() {
 	http.ListenAndServe(":8081", nil)
 }
 
-var request, err = rest.RestClient.Candles(&markets.RequestForCandles{ProductCode: "BTC-PERP", Resolution: 900})
+var request, err = RestClient.Candles(&markets.RequestForCandles{ProductCode: "BTC-PERP", Resolution: 900})
 
 type chartData struct {
 	date string
@@ -46,6 +45,7 @@ func MoveTimestamp(data []opts.KlineData) (x []string) {
 	// naked return
 	return
 }
+
 /* Kline example:
 https://github.com/go-echarts/examples/blob/master/examples/kline.go */
 func KlineChart(w http.ResponseWriter, _ *http.Request) {
@@ -83,27 +83,27 @@ func KlineChart(w http.ResponseWriter, _ *http.Request) {
 	)
 
 	kline.SetXAxis(x).AddSeries(chartTitle, y).SetSeriesOptions(
-			charts.WithMarkPointNameTypeItemOpts(opts.MarkPointNameTypeItem{
-				Name:     "highest value",
-				Type:     "max",
-				ValueDim: "highest",
-			}),
-			charts.WithMarkPointNameTypeItemOpts(opts.MarkPointNameTypeItem{
-				Name:     "lowest value",
-				Type:     "min",
-				ValueDim: "lowest",
-			}),
-			charts.WithMarkPointStyleOpts(opts.MarkPointStyle{
-				Label: &opts.Label{
-					Show: true,
-				},
-			}),
-			charts.WithItemStyleOpts(opts.ItemStyle{
-				Color:        "#ec0000",
-				Color0:       "#00da3c",
-				BorderColor:  "#8A0000",
-				BorderColor0: "#008F28",
-			}),
-		)
+		charts.WithMarkPointNameTypeItemOpts(opts.MarkPointNameTypeItem{
+			Name:     "highest value",
+			Type:     "max",
+			ValueDim: "highest",
+		}),
+		charts.WithMarkPointNameTypeItemOpts(opts.MarkPointNameTypeItem{
+			Name:     "lowest value",
+			Type:     "min",
+			ValueDim: "lowest",
+		}),
+		charts.WithMarkPointStyleOpts(opts.MarkPointStyle{
+			Label: &opts.Label{
+				Show: true,
+			},
+		}),
+		charts.WithItemStyleOpts(opts.ItemStyle{
+			Color:        "#ec0000",
+			Color0:       "#00da3c",
+			BorderColor:  "#8A0000",
+			BorderColor0: "#008F28",
+		}),
+	)
 	kline.Render(w)
 }

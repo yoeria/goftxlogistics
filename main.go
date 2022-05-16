@@ -1,34 +1,30 @@
 package main
 
-import (
-	"fmt"
-	"strconv"
-	"time"
+type MainProcess struct {
+	MainProcessInfo      *mainProcessInfo
+	ActivePositionsCount int64
+	Action               chan Buy
+}
 
-	"github.com/sdcoffey/big"
-	"github.com/sdcoffey/techan"
-	"github.com/yoeria/goftxlogistics/rest"
-)
+type mainProcessInfo struct {}
 
-func main() {
-	rest.LoadCreds("./rest/creds.env")
-	series := techan.NewTimeSeries()
+// Actions possible for the MainProcess to execute
+type Action chan struct {
+	Buy  *Buy
+	Sell *Sell
+}
 
-	// fetch this from your preferred exchange
-	dataset := [][]string{
-		// Timestamp, Open, Close, High, Low, volume
-		{"1234567", "1", "2", "3", "5", "6"},
-	}
+// Buy instruction details
+type Buy struct {
+}
 
-	for _, datum := range dataset {
-		start, _ := strconv.ParseInt(datum[0], 10, 64)
-		period := techan.NewTimePeriod(time.Unix(start, 0), time.Hour*24)
+// Buy instruction details
+type Sell struct {
+}
+
 
 func main() {
 	//login
-	rest.LoadCreds("./rest/creds.env")
-
-
-	
+	LoadCreds("./")
 
 }

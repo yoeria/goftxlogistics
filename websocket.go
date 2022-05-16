@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/go-numb/go-ftx/realtime"
-	"github.com/yoeria/goftxlogistics/rest"
 )
 
 func WebsocketActions() {
@@ -14,8 +13,8 @@ func WebsocketActions() {
 
 	ch := make(chan realtime.Response)
 	go realtime.Connect(ctx, ch, []string{"ticker"}, []string{"BTC-PERP"}, nil)
-	go rest.LoadCreds("./rest/creds.env")
-	go realtime.ConnectForPrivate(ctx, ch, rest.ReadonlyKey, rest.ReadonlySecret, []string{"orders", "fills"}, nil)
+	go LoadCreds("./rest/creds.env")
+	go realtime.ConnectForPrivate(ctx, ch, ReadOnlyKey, ReadOnlySecret, []string{"orders", "fills"}, nil)
 
 	for v := range ch {
 		switch ctx.Value(v) {
