@@ -48,6 +48,7 @@ require (
 )
 
 replace (
+	github.com/yoeria/goftxlogistics/cmd => ./cmd
 	github.com/yoeria/goftxlogistics/protos => ./protos
 	github.com/yoeria/goftxlogistics/strategies => ./strategies
 )
