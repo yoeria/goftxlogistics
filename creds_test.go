@@ -19,7 +19,7 @@ func TestLoadCreds(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(_ *testing.T) {
 			wg.Add(2)
-			LoadCreds("./creds.env")
+			LoadCreds("./")
 			go fmt.Print(ReadOnlyKey, ReadOnlySecret)
 			wg.Wait()
 		})
