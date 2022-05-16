@@ -1,4 +1,4 @@
-package rest
+package main
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ func TestLoadCreds(t *testing.T) {
 		t.Run(tt.name, func(_ *testing.T) {
 			wg.Add(2)
 			LoadCreds("./creds.env")
-			go fmt.Print(ReadonlyKey, ReadonlySecret)
+			go fmt.Print(ReadOnlyKey, ReadOnlySecret)
 			wg.Wait()
 		})
 	}

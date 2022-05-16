@@ -1,4 +1,4 @@
-package rest
+package main
 
 import (
 	"fmt"
@@ -19,20 +19,20 @@ import (
 )
 
 var (
-	RestClient = rest.New(auth.New(ReadonlyKey, ReadonlySecret))
+	RestClient            = rest.New(auth.New(ReadOnlyKey, ReadOnlySecret))
 	ClientWithSubAccounts = rest.New(
-	auth.New(
-		ReadonlyKey,
-		ReadonlySecret,
-		auth.SubAccount{
-			UUID:     1,
-			Nickname: "MM",
-		},
-		auth.SubAccount{
-			UUID:     2,
-			Nickname: "Test",
-		},
-	))
+		auth.New(
+			ReadOnlyKey,
+			ReadOnlySecret,
+			auth.SubAccount{
+				UUID:     1,
+				Nickname: "MM",
+			},
+			auth.SubAccount{
+				UUID:     2,
+				Nickname: "Test",
+			},
+		))
 )
 
 func RestActions() {
@@ -61,8 +61,7 @@ func RestActions() {
 }
 
 func getMarkets() *markets.ResponseForMarkets {
-	market, err := RestClient.Markets(&markets.RequestForMarkets{
-	})
+	market, err := RestClient.Markets(&markets.RequestForMarkets{})
 
 	if err != nil {
 		log.Fatal(err)

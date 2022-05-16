@@ -48,15 +48,11 @@ require (
 )
 
 replace (
-	github.com/yoeria/goftxlogistics/account => ./account
 	github.com/yoeria/goftxlogistics/db => ./db
 	github.com/yoeria/goftxlogistics/protos => ./protos
-	github.com/yoeria/goftxlogistics/rest => ./rest
 	github.com/yoeria/goftxlogistics/strategies => ./strategies
 	github.com/yoeria/goftxlogistics/structs => ./structs
 	github.com/yoeria/goftxlogistics/util => ./util
 )
 
-exclude (
-	github.com/yoeria/goftxlogistics/protos v0.0.0
-)
+exclude github.com/yoeria/goftxlogistics/protos v0.0.0
