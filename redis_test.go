@@ -1,4 +1,4 @@
-package db
+package main
 
 import (
 	"fmt"
@@ -7,7 +7,6 @@ import (
 
 	"github.com/go-redis/redis/v8"
 	"github.com/gookit/color"
-	"github.com/yoeria/goftxlogistics/structs"
 )
 
 // Test validity of redis connection.
@@ -23,7 +22,7 @@ func TestAppendTradeToTrades(t *testing.T) {
 	ctx := RDB.Context()
 	count := 100
 	for i := 0; i < count; i++ {
-		byteSlice, err := structs.Trade{
+		byteSlice, err := Trade{
 			DatetimeEnter: "2022-01-01",
 			DatetimeExit:  "2022-01-02",
 			Enter:         float64(i ^ 2),

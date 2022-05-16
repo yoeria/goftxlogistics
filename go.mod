@@ -48,7 +48,6 @@ require (
 )
 
 replace (
-	github.com/yoeria/goftxlogistics/db => ./db
 	github.com/yoeria/goftxlogistics/protos => ./protos
 	github.com/yoeria/goftxlogistics/strategies => ./strategies
 )
