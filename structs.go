@@ -1,14 +1,10 @@
-package structs
+package main
 
 import (
 	"encoding/json"
 )
 
-/*
-Used to keep track of trades made by the system
-
-Keep track in Redis DB
-*/
+//Used to keep track of trades made by the system
 type Trade struct {
 	// Date and time on entering trade
 	DatetimeEnter string ``
