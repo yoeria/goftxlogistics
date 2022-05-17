@@ -19,8 +19,7 @@ import (
 )
 
 var (
-	RestClient            = rest.New(auth.New(ReadOnlyKey, ReadOnlySecret))
-	ClientWithSubAccounts = rest.New(
+	RestClient = rest.New(
 		auth.New(
 			ReadOnlyKey,
 			ReadOnlySecret,
