@@ -7,10 +7,6 @@ import (
 	"github.com/go-numb/go-ftx/rest/public/futures"
 )
 
-var (
-	rc = RestClient
-)
-
 type TradableFutures struct {
 	Name                              string
 	Change1H, Change24H, VolumeUsd24H float64
