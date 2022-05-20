@@ -13,7 +13,7 @@ type MainProcess struct {
 
 type mainProcessInfo struct{}
 
-type Order chan struct {
+type Order struct {
 	ClientID          string
 	Type              string
 	Market            string
