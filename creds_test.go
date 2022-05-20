@@ -10,7 +10,7 @@ func TestLoadCreds(t *testing.T) {
 		name string
 	}{
 		{
-			name: "print FTX key and secret",
+			name: "Print FTX key and secret",
 		},
 	}
 	for _, tt := range tests {
