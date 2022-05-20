@@ -9,43 +9,48 @@ type Broker struct{}
 type MainProcess struct {
 	MainProcessInfo      *mainProcessInfo
 	ActivePositionsCount int64
-	Action               chan Buy
 }
 
 type mainProcessInfo struct{}
 
-// Buy instruction details
-type Buy chan struct {
-	Currency string
+type Order chan struct {
+	ClientID          string
+	Type              string
+	Market            string
+	Side              string
+	Price             float64
+	Size              float64
+	ReduceOnly        bool
+	Ioc               bool
+	PostOnly          bool
+	RejectOnPriceBand bool
 }
 
-// Sell instruction details
-type Sell chan struct {
-	Currency string
+func (o *Order) Parse() (newOrder *orders.RequestForPlaceOrder) {
+	newOrder = &orders.RequestForPlaceOrder{
+		ClientID:          o.ClientID,
+		Type:              o.Type,
+		Market:            o.Market,
+		Side:              o.Side,
+		Price:             o.Price,
+		Size:              o.Size,
+		ReduceOnly:        o.ReduceOnly,
+		Ioc:               o.Ioc,
+		PostOnly:          o.PostOnly,
+		RejectOnPriceBand: o.RejectOnPriceBand,
+	}
+
+	return
 }
-type Order *orders.RequestForPlaceOrder
+
 func main() {
 	//login
 	LoadCreds("./")
-	Order
-	chanBuy := make(chan Buy)
-	chanSell := make(chan Sell)
+
+	chanOrder := make(chan Order)
 	select {
-	case b := <-chanBuy:
-		rc.PlaceOrder(&orders.RequestForPlaceOrder{
-			ClientID:          "use_original_client_id",
-			Type:              "buy",
-			Market:            ,
-			Side:              "",
-			Price:             0,
-			Size:              0,
-			ReduceOnly:        false,
-			Ioc:               false,
-			PostOnly:          false,
-			RejectOnPriceBand: false,
-		})
-	case s <- chanSell:
-		rc.PlaceOrder(Order)
+	case o := <-chanOrder:
+
 	}
 
 }
