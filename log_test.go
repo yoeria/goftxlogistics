@@ -14,9 +14,9 @@ func TestLog_Send(t *testing.T) {
 		name   string
 		fields fields
 	}{
-struct{name string; fields fields}{name: "Send Log struct as set",fields: fields{Trigger: STRATEGY,Time: time.Now()}}	}
+		{name: "Send Log struct as set", fields: fields{Trigger: STRATEGY, Time: time.Now()}}}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.name, func(_ *testing.T) {
 			l := &Log{
 				Trigger: tt.fields.Trigger,
 				Time:    tt.fields.Time,
