@@ -47,10 +47,11 @@ func main() {
 	//login
 	LoadCreds("./")
 
+	// Make channel that receives all Order requests
 	chanOrder := make(chan Order)
 	select {
 	case o := <-chanOrder:
-
+		
 	}
 
 }
