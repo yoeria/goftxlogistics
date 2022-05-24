@@ -11,15 +11,15 @@ import (
 
 // Test validity of redis connection.
 func Test(t *testing.T) {
-	ctx := RDB.Context()
-	testCommand := RDB.Info(ctx)
+	ctx := rdb.Context()
+	testCommand := rdb.Info(ctx)
 
 	fmt.Printf("t: %v\n", t)
 	fmt.Println(testCommand)
 }
 
 func TestAppendTradeToTrades(t *testing.T) {
-	ctx := RDB.Context()
+	ctx := rdb.Context()
 	count := 100
 	for i := 0; i < count; i++ {
 		byteSlice, err := Trade{
@@ -36,7 +36,7 @@ func TestAppendTradeToTrades(t *testing.T) {
 		if err != nil {
 			fmt.Println(err.Error())
 		}
-		add := RDB.ZAdd(ctx, "TradesTesting", &redis.Z{
+		add := rdb.ZAdd(ctx, "TradesTesting", &redis.Z{
 			Score:  rand.Float64(),
 			Member: byteSlice,
 		})
