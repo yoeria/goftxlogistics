@@ -6,6 +6,6 @@ import (
 
 var RDB = redis.NewClient(&redis.Options{
 	Addr:     "dssq.xyz:6380",
-	Password: "coliseum-dealer-entree",
+	Password: REDIS_PASSWORD,
 	DB:       0, // use default DB
 })

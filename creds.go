@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"os"
 
 	dotenv "github.com/joho/godotenv"
 )
@@ -20,6 +19,3 @@ func LoadCreds(root string) (fileLocation string) {
 	}
 	return
 }
-
-var ReadOnlyKey string = os.Getenv("FTX_KEY")
-var ReadOnlySecret string = os.Getenv("FTX_SECRET")
