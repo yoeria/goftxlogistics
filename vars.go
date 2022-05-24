@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"os"
 	"sync"
 
@@ -11,13 +12,14 @@ import (
 // All static pre-defined variables to use in the project
 
 var (
-	rc  *rest.Client = RestClient
-	rdb              = redis.NewClient(&redis.Options{
+	rc  *rest.Client  = RestClient
+	rdb *redis.Client = redis.NewClient(&redis.Options{
 		Addr:     "dssq.xyz:6380",
 		Password: REDIS_PASSWORD,
 		DB:       0, // use default DB
 	})
-	wg sync.WaitGroup
+	wg  sync.WaitGroup
+	ctx context.Context = context.Background()
 
 	ReadOnlyKey    string = os.Getenv("FTX_KEY")
 	ReadOnlySecret string = os.Getenv("FTX_SECRET")
