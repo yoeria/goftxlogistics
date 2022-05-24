@@ -6,8 +6,7 @@ import (
 	dotenv "github.com/joho/godotenv"
 )
 
-// Loads credentials from file into process environment variables \n
-//
+// Loads credentials from file into process environment variables
 func LoadCreds(root string) (fileLocation string) {
 	fileLocation, err := FindFile(root, "creds.env")
 	if err != nil {
