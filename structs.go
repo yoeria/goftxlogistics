@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/go-numb/go-ftx/rest/private/orders"
 )
 
 // Configuration for XYZ
@@ -17,7 +19,7 @@ type strategies struct {
 	STOCHRSI bool
 }
 
-func (s *strategies) Update() {
+func (s *strategies) Update() *strategies{
 	hashkey := "strategiesConfig" + ":" + string(HASHES["strategies"])
 	values := rdb.HMGet(ctx,hashkey,"*")
 	for k, v := range values.Val() {
@@ -25,6 +27,50 @@ func (s *strategies) Update() {
 
 	}
 	return
+}
+
+
+type Statistics struct {
+	MainProcessInfo      *mainProcessInfo
+	ActivePositionsCount int64
+}
+
+type mainProcessInfo struct{}
+
+type Order struct {
+	ClientID          string
+	Type              string
+	Market            string
+	Side              string
+	Price             float64
+	Size              float64
+	ReduceOnly        bool
+	Ioc               bool
+	PostOnly          bool
+	RejectOnPriceBand bool
+}
+
+func (o *Order) Parse() (newOrder *orders.RequestForPlaceOrder) {
+	newOrder = &orders.RequestForPlaceOrder{
+		ClientID:          o.ClientID,
+		Type:              o.Type,
+		Market:            o.Market,
+		Side:              o.Side,
+		Price:             o.Price,
+		Size:              o.Size,
+		ReduceOnly:        o.ReduceOnly,
+		Ioc:               o.Ioc,
+		PostOnly:          o.PostOnly,
+		RejectOnPriceBand: o.RejectOnPriceBand,
+	}
+
+	return
+}
+
+// Executes sending (trying to place) order to server
+func (o *Order) Exec() {
+order,err := rc.PlaceOrder(o.Parse())
+order.
 }
 
 //Used to keep track of trades made by the system
