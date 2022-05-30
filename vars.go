@@ -39,8 +39,8 @@ var (
 		"preferences": 0,
 		"strategies":  1,
 	}
-	activePreferences *Preferences
-	activeStrategies  *strategies
+	aPreferences *Preferences
+	aStrategies  *strategies
 )
 
 const (

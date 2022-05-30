@@ -89,12 +89,12 @@ func newModel() model {
 		itemDelegate list.ItemDelegate
 	)
 	var fields []string
-	e := reflect.ValueOf(&activePreferences)
+	e := reflect.ValueOf(&aPreferences)
 	for i := 0; i < e.NumField(); i++ {
 		fields = append(fields, e.Type().Name())
 	}
 
-	getValues := rdb.HMGet(ctx,"preferences", fields...)
+	getValues := rdb.HMGet(ctx, "preferences", fields...)
 
 	// Make list of items
 	items := make([]list.Item, 0)

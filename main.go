@@ -30,6 +30,6 @@ func init() {
 
 // This function triggers the update/initialization of the configuration vars
 func UpdateConfiguration() {
-	activePreferences.Update()
-	activeStrategies.Update()
+	aPreferences.Update()
+	aStrategies.Update()
 }
