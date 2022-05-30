@@ -36,10 +36,11 @@ var (
 	timeOfOnlineChanges time.Time
 
 	HASHES map[string]int64 = map[string]int64{
-		"preferences":0,
-		"strategies":1,
+		"preferences": 0,
+		"strategies":  1,
 	}
-
+	activePreferences *Preferences
+	activeStrategies  *strategies
 )
 
 const (
