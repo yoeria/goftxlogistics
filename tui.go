@@ -1,6 +1,8 @@
 package main
 
 import (
+	"reflect"
+
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
@@ -40,6 +42,7 @@ type listKeyMap struct {
 	togglePagination key.Binding
 	toggleHelpMenu   key.Binding
 	insertItem       key.Binding
+	reloadItems      key.Binding
 }
 
 func newListKeyMap() *listKeyMap {
@@ -68,6 +71,10 @@ func newListKeyMap() *listKeyMap {
 			key.WithKeys("H"),
 			key.WithHelp("H", "toggle help"),
 		),
+		reloadItems: key.NewBinding(
+			key.WithKeys("R"),
+			key.WithHelp("R", "reload items"),
+		),
 	}
 }
 
@@ -81,10 +88,16 @@ func newModel() model {
 		listKeys     = newListKeyMap()
 		itemDelegate list.ItemDelegate
 	)
+	var fields []string
+	e := reflect.ValueOf(&activePreferences)
+	for i := 0; i < e.NumField(); i++ {
+		fields = append(fields, e.Type().Name())
+	}
 
-	// Make initial list of items
-	const numItems = 24
-	items := make([]list.Item, numItems)
+	getValues := rdb.HMGet(ctx,"preferences", fields...)
+
+	// Make list of items
+	items := make([]list.Item, 0)
 	for i := 0; i < numItems; i++ {
 		items[i] = itemGenerator.next()
 	}
