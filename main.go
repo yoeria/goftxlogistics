@@ -24,11 +24,9 @@ func main() {
 // Set default values in init func
 func init() {
 	var (
-	/* currentStrategies *strategies = strategies{
-		EMA:      rdb,
-		SMA:      rdb,
-		STOCHRSI: rdb,
-	} */
-	)
+	currentStrategies *strategies
 
+	)
+	// Fill in rdb suppliable struct vars
+	currentStrategies.Update()
 }

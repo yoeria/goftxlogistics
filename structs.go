@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"reflect"
 
 	"github.com/go-numb/go-ftx/rest/private/orders"
 )
@@ -15,24 +14,19 @@ type Preferences struct {
 	EnabledStrategies      *strategies
 }
 
+func (p *Preferences) Update() error {
+	return FillStruct(p,"preferences")
+}
+
 type strategies struct {
 	EMA      bool
 	SMA      bool
 	STOCHRSI bool
 }
 
-func (s *strategies) Update() {
-	var fields []string
-	e := reflect.ValueOf(&s).Elem()
-	for i := 0; i < e.NumField(); i++ {
-		fields = append(fields, e.Type().Name())
-	}
-
-	values := rdb.HMGet(ctx, "strategies", fields...)
-	for k, v := range values.Val() {
-		fmt.Printf("Key:\t%v\nValue:\t%v", k, v)
-	}
-	return
+// Update/init the struct
+func (s *strategies) Update() error {
+	return FillStruct(s, "strategies")
 }
 
 type Statistics struct {
