@@ -16,6 +16,7 @@ func main() {
 		break
 	// Default case is check to sync config with server
 	default:
+		UpdateConfiguration()
 		break
 	}
 
@@ -23,10 +24,12 @@ func main() {
 
 // Set default values in init func
 func init() {
-	var (
-	currentStrategies *strategies
-
-	)
 	// Fill in rdb suppliable struct vars
-	currentStrategies.Update()
+	UpdateConfiguration()
+}
+
+// This function triggers the update/initialization of the configuration vars
+func UpdateConfiguration() {
+	activePreferences.Update()
+	activeStrategies.Update()
 }
