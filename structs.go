@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
+	"reflect"
 
 	"github.com/go-numb/go-ftx/rest/private/orders"
 )
@@ -19,16 +21,19 @@ type strategies struct {
 	STOCHRSI bool
 }
 
-func (s *strategies) Update() *strategies{
-	hashkey := "strategiesConfig" + ":" + string(HASHES["strategies"])
-	values := rdb.HMGet(ctx,hashkey,"*")
-	for k, v := range values.Val() {
-		fmt.Printf("Key:\t%v\nValue:\t%v",k,v)
+func (s *strategies) Update() {
+	var fields []string
+	e := reflect.ValueOf(&s).Elem()
+	for i := 0; i < e.NumField(); i++ {
+		fields = append(fields, e.Type().Name())
+	}
 
+	values := rdb.HMGet(ctx, "strategies", fields...)
+	for k, v := range values.Val() {
+		fmt.Printf("Key:\t%v\nValue:\t%v", k, v)
 	}
 	return
 }
-
 
 type Statistics struct {
 	MainProcessInfo      *mainProcessInfo
@@ -68,9 +73,14 @@ func (o *Order) Parse() (newOrder *orders.RequestForPlaceOrder) {
 }
 
 // Executes sending (trying to place) order to server
-func (o *Order) Exec() {
-order,err := rc.PlaceOrder(o.Parse())
-order.
+func (o *Order) Exec() (order *orders.ResponseForPlaceOrder, err error) {
+	order, err = rc.PlaceOrder(o.Parse())
+	if err != nil {
+		log.Println(err)
+	}
+	// logging orderstatus in stdout
+	fmt.Println(order.Status)
+	return
 }
 
 //Used to keep track of trades made by the system
