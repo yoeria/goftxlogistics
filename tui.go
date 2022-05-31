@@ -96,10 +96,11 @@ func newModel() model {
 
 	getValues := rdb.HMGet(ctx, "preferences", fields...)
 
+	vals := getValues.Val()
 	// Make list of items
 	items := make([]list.Item, 0)
-	for i := 0; i < numItems; i++ {
-		items[i] = itemGenerator.next()
+	for i := range vals {
+		items[i] = vals[i].(list.Item)
 	}
 
 	// Setup list
@@ -165,12 +166,6 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.list.SetShowHelp(!m.list.ShowHelp())
 			return m, nil
 
-		case key.Matches(msg, m.keys.insertItem):
-			m.delegateKeys.remove.SetEnabled(true)
-			newItem := m.itemGenerator.next()
-			insCmd := m.list.InsertItem(0, newItem)
-			statusCmd := m.list.NewStatusMessage(statusMessageStyle("Added " + newItem.Title()))
-			return m, tea.Batch(insCmd, statusCmd)
 		}
 	}
 
