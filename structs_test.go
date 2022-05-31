@@ -15,10 +15,10 @@ func Test_strategies_Update(t *testing.T) {
 		name   string
 		fields fields
 	}{
-		struct{name string; fields fields}{fields: fields{EMA: true, SMA:true, STOCHRSI: true}},
+		{fields: fields{EMA: true, SMA: true, STOCHRSI: true}},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.name, func(_ *testing.T) {
 			s := &strategies{
 				EMA:      tt.fields.EMA,
 				SMA:      tt.fields.SMA,
