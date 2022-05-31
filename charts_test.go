@@ -1,29 +1,23 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"testing"
-
-	"github.com/davecgh/go-spew/spew"
-	"github.com/gookit/color"
 )
 
-func TestReq(t *testing.T) {
+/* func TestReq(t *testing.T) {
 	fmt.Printf("t: %v\n", t)
 	color.Set(color.HiGreen, color.BgBlack)
 	spew.Dump(*ParseCandles(*request))
 	color.Reset()
-	fmt.Println()
 }
 
 func TestChart(t *testing.T) {
 	fmt.Print("TestChart func:\n\n")
 	color.Set(color.Magenta)
-	//spew.Dump(t)
 	color.Reset()
 	serveChart()
-}
+} */
 
 func Test_KlineChart(t *testing.T) {
 	type args struct {
