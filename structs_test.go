@@ -15,7 +15,10 @@ func Test_strategies_Update(t *testing.T) {
 		name   string
 		fields fields
 	}{
-		{fields: fields{EMA: true, SMA: true, STOCHRSI: true}},
+		{
+			name:   "TEST UpdateConfiguration: STRATEGIES",
+			fields: fields{EMA: true, SMA: true, STOCHRSI: true},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(_ *testing.T) {
