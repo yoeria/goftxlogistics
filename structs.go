@@ -14,8 +14,9 @@ type Preferences struct {
 	EnabledStrategies      *strategies
 }
 
+// Update/init the struct
 func (p *Preferences) Update() error {
-	return FillStruct(p,"preferences")
+	return FillPreferencesStruct(p, "preferences")
 }
 
 type strategies struct {
@@ -26,7 +27,7 @@ type strategies struct {
 
 // Update/init the struct
 func (s *strategies) Update() error {
-	return FillStruct(s, "strategies")
+	return FillStrategiesStruct(s, "strategies")
 }
 
 type Statistics struct {
