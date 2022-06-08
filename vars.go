@@ -29,15 +29,17 @@ var (
 		"preferences": 0,
 		"strategies":  1,
 	}
-
 )
 
 // All DYNAMIC pre-defined variables to use in the project
 var (
 	// Use the aXXXXXXX variables for every instance since these values have global properties and are not instance specific
+
+	// Reading values from redis
 	aPreferences *Preferences
 	aStrategies  *strategies
-	aSyncInfo    *SyncInfo
+	// Reading and setting values locally
+	aSyncInfo *SyncInfo
 )
 
 const (
