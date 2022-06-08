@@ -4,11 +4,19 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/go-numb/go-ftx/rest/private/orders"
 )
 
-// Configuration for XYZ
+// TODO: Add Log field containing a logger from "log" package
+type ProcessInformation struct {
+	Preferences *Preferences `json:"preferences"`
+	Statistics  *Statistics  `json:"statistics"`
+	SyncInfo    *SyncInfo    `json:"syncinfo"`
+}
+
+// Configuration for a process
 type Preferences struct {
 	MaxConcurrentPositions int64
 	EnabledStrategies      *strategies
@@ -31,11 +39,19 @@ func (s *strategies) Update() error {
 }
 
 type Statistics struct {
-	MainProcessInfo      *mainProcessInfo
 	ActivePositionsCount int64
 }
 
-type mainProcessInfo struct{}
+type SyncInfo struct {
+	// Time config was last synced on local machine
+	timeOfLastSync time.Time
+	// Bool is true if changes are made locally and they need to be synced with redis server
+	localChangesDone bool
+	// Time config was last changed locally
+	timeOfLocalChanges time.Time
+	// Time config was last changed on the redis server
+	timeOfOnlineChanges time.Time
+}
 
 type Order struct {
 	ClientID          string
