@@ -9,7 +9,7 @@ import (
 	"github.com/go-redis/redis/v8"
 )
 
-// All static pre-defined variables to use in the project
+// All STATIC pre-defined variables to use in the project
 
 var (
 	rc  *rest.Client  = RestClient
@@ -29,8 +29,15 @@ var (
 		"preferences": 0,
 		"strategies":  1,
 	}
+
+)
+
+// All DYNAMIC pre-defined variables to use in the project
+var (
+	// Use the aXXXXXXX variables for every instance since these values have global properties and are not instance specific
 	aPreferences *Preferences
 	aStrategies  *strategies
+	aSyncInfo    *SyncInfo
 )
 
 const (
