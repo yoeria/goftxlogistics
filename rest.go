@@ -35,9 +35,6 @@ var (
 )
 
 func RestActions() {
-	info := getAccountInfo()
-
-	fmt.Printf("Account information:\n %v\n", info)
 
 	market := getMarkets()
 
@@ -66,15 +63,6 @@ func getMarkets() *markets.ResponseForMarkets {
 		log.Fatal(err)
 	}
 	return market
-}
-
-func getAccountInfo() *account.ResponseForInformation {
-	info, err := RestClient.Information(&account.RequestForInformation{})
-	if err != nil {
-		log.Fatal(err)
-	}
-	//	fmt.Printf("Account information:\n %v\n", info)
-	return info
 }
 
 func PlaceLimitOrder(market string, price, size float64) {
