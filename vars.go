@@ -4,7 +4,6 @@ import (
 	"context"
 	"os"
 	"sync"
-	"time"
 
 	"github.com/go-numb/go-ftx/rest"
 	"github.com/go-redis/redis/v8"
@@ -25,15 +24,6 @@ var (
 	ReadOnlyKey    string = os.Getenv("FTX_KEY")
 	ReadOnlySecret string = os.Getenv("FTX_SECRET")
 	REDIS_PASSWORD string = os.Getenv("REDIS_PASSWORD")
-
-	// Time config was last synced on local machine
-	timeOfLastSync time.Time
-	// Bool is true if changes are made locally and they need to be synced with redis server
-	localChangesDone bool
-	// Time config was last changed locally
-	timeOfLocalChanges time.Time
-	// Time config was last changed on the redis server
-	timeOfOnlineChanges time.Time
 
 	HASHES map[string]int64 = map[string]int64{
 		"preferences": 0,
