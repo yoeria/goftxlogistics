@@ -8,12 +8,7 @@ import (
 
 // Retrieve values from chosen hash table and put those into the provided struct
 func FillStrategiesStruct(s *strategies, hashTable string) error {
-	var fields []string
-	e := reflect.ValueOf(s).Elem()
-	for i := 0; i < e.NumField(); i++ {
-		fields = append(fields, e.Field(i).String())
-	}
-
+	fields := getStrategyFields(s)
 	getValues := rdb.HMGet(ctx, hashTable, fields...)
 	values, err := getValues.Result()
 	if err != nil {
@@ -31,14 +26,25 @@ func FillStrategiesStruct(s *strategies, hashTable string) error {
 	return nil
 }
 
-// Retrieve values from chosen hash table and put those into the provided struct
-func FillPreferencesStruct(s *Preferences, hashTable string) error {
-	var fields []string
-	e := reflect.ValueOf(s).Elem()
-	for i := 0; i < e.NumField(); i++ {
-		fields = append(fields, e.Field(i).String())
+func getStrategyFields(s *strategies) (fields []string) {
+	val := reflect.ValueOf(s).Elem()
+
+	for i := 0; i < val.NumField(); i++ {
+		//valueField := val.Field(i)
+		typeField := val.Type().Field(i)
+		//tag := typeField.Tag
+
+		fields = append(fields, typeField.Name)
 	}
-	getValues := rdb.HMGet(ctx, hashTable, fields...)
+	return
+}
+
+// Retrieve values from chosen hash table and put those into the provided struct
+func FillPreferencesStruct(p *Preferences, hashTable string) error {
+
+	fields := getPreferencesFields(p)
+
+	getValues := rdb.Pipeline().HMGet(ctx, hashTable, fields...)
 	values, err := getValues.Result()
 	if err != nil {
 		return err
@@ -53,4 +59,17 @@ func FillPreferencesStruct(s *Preferences, hashTable string) error {
 
 	// In case of no error
 	return nil
+}
+
+func getPreferencesFields(p *Preferences) (fields []string) {
+	val := reflect.ValueOf(p).Elem()
+
+	for i := 0; i < val.NumField(); i++ {
+		//valueField := val.Field(i)
+		typeField := val.Type().Field(i)
+		//tag := typeField.Tag
+
+		fields = append(fields, typeField.Name)
+	}
+	return
 }

@@ -17,6 +17,7 @@ func main() {
 
 	// Make instance of ProcessInformation
 	p0 := &ProcessInformation{
+		// Each process is keeping their own statistics
 		Statistics: &Statistics{
 			ActivePositionsCount: 0,
 		},
@@ -38,7 +39,6 @@ func main() {
 	// Default case is check to sync config with server
 	default:
 		UpdateConfiguration()
-		break
 	}
 
 }

@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 	"sync"
+	"time"
 
 	"github.com/go-numb/go-ftx/rest"
 	"github.com/go-redis/redis/v8"
@@ -36,10 +37,22 @@ var (
 	// Use the aXXXXXXX variables for every instance since these values have global properties and are not instance specific
 
 	// Reading values from redis
-	aPreferences *Preferences
-	aStrategies  *strategies
+	aPreferences *Preferences = &Preferences{
+		MaxConcurrentPositions: 0,
+		EnabledStrategies:      aStrategies,
+	}
+	aStrategies *strategies = &strategies{
+		EMA:      false,
+		SMA:      false,
+		STOCHRSI: false,
+	}
 	// Reading and setting values locally
-	aSyncInfo *SyncInfo
+	aSyncInfo *SyncInfo = &SyncInfo{
+		timeOfLastSync:      time.Time{},
+		localChangesDone:    false,
+		timeOfLocalChanges:  time.Time{},
+		timeOfOnlineChanges: time.Time{},
+	}
 )
 
 const (
