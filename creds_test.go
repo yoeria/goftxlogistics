@@ -1,23 +1,33 @@
 package main
 
 import (
-	"fmt"
+	"strings"
 	"testing"
 )
 
 func TestLoadCreds(t *testing.T) {
+	type args struct {
+		root string
+	}
 	tests := []struct {
-		name string
+		name             string
+		args             args
+		wantFileLocation string
 	}{
 		{
 			name: "Print FTX key and secret",
+			args: args{root: "./"}, //wantFileLocation: "../goftxlogistics/creds.env",
 		},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(_ *testing.T) {
-			LoadCreds("./")
-			go fmt.Print(ReadOnlyKey, ReadOnlySecret)
-			wg.Wait()
+		t.Run(tt.name, func(t *testing.T) {
+			if gotFileLocation := LoadCreds(tt.args.root); gotFileLocation != tt.wantFileLocation {
+				if strings.Contains(gotFileLocation, "creds.env") {
+					return
+				} else {
+					t.Errorf("LoadCreds() = %v, want %v", gotFileLocation, tt.wantFileLocation)
+				}
+			}
 		})
 	}
 }
