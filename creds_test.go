@@ -16,7 +16,7 @@ func TestLoadCreds(t *testing.T) {
 	}{
 		{
 			name: "Print FTX key and secret",
-			args: args{root: "./"}, //wantFileLocation: "../goftxlogistics/creds.env",
+			args: args{root: "./"},
 		},
 	}
 	for _, tt := range tests {
