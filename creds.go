@@ -10,7 +10,7 @@ import (
 func LoadCreds(root string) (fileLocation string) {
 	fileLocation, err := FindFile(root, "creds.env")
 	if err != nil {
-		return fileLocation
+		return
 	}
 	err = dotenv.Load(fileLocation)
 	if err != nil {
