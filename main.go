@@ -12,8 +12,6 @@ func init() {
 
 // Launch instances by creating a variable with the value of struct ProcessInformation
 func main() {
-	//login
-	LoadCreds("./")
 
 	// Make instance of ProcessInformation
 	p0 := &ProcessInformation{
