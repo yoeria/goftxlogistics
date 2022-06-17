@@ -1,18 +1,17 @@
 package main
 
 import (
-	"fmt"
 	"testing"
 )
 
 // Test validity of redis connection.
 func Test(t *testing.T) {
-	LoadCreds("./")
 	ctx := rdb.Context()
-	testCommand, err := rdb.Info(ctx).Result()
+	_, err := rdb.Info(ctx).Bool()
+	testName := "Redis Connection"
 	if err != nil {
-		t.Errorf("❌ Redis Connection\n REASON: %v", err)
+		t.Errorf("%vREASON: %v", getTestConclusion(false, testName), err)
 	}
-	fmt.Println(testCommand)
+	getTestConclusion(true, testName)
 
 }
