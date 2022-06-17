@@ -10,7 +10,6 @@ require (
 	github.com/go-echarts/go-echarts/v2 v2.2.4
 	github.com/go-numb/go-ftx v0.0.0-20211208060907-82614a9fd25b
 	github.com/go-redis/redis/v8 v8.11.4
-	github.com/gookit/color v1.5.0
 	github.com/joho/godotenv v1.4.0
 	github.com/json-iterator/go v1.1.12
 	github.com/labstack/gommon v0.3.1
@@ -53,7 +52,6 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.21.0 // indirect
 	github.com/valyala/fasttemplate v1.2.1 // indirect
-	github.com/xo/terminfo v0.0.0-20210125001918-ca9a967f8778 // indirect
 	golang.org/x/net v0.0.0-20210428140749-89ef3d95e781 // indirect
 	golang.org/x/sys v0.0.0-20211103235746-7861aae1554b // indirect
 	golang.org/x/term v0.0.0-20210422114643-f5beecf764ed // indirect
