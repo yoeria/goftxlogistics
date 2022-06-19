@@ -83,3 +83,7 @@ func getTestConclusion(isSuccess bool, testName string) string {
 	// if FALSE
 	return fmt.Sprintf("❌\t%v\n", testName)
 }
+
+func getReason(err error) string {
+	return fmt.Sprintf("❓REASON:\n%v", err)
+}

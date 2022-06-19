@@ -10,6 +10,10 @@ import (
 	"github.com/go-redis/redis/v8"
 )
 
+/*
+All next vars will be initialized on compilation
+*/
+
 // All STATIC pre-defined variables to use in the project
 
 var (
@@ -22,10 +26,10 @@ var (
 	wg  sync.WaitGroup
 	ctx context.Context = context.Background()
 	// Mandatory to make the env variables work below this call
-	envFileLocation = LoadCreds("./")
-	ReadOnlyKey    string = os.Getenv("FTX_KEY")
-	ReadOnlySecret string = os.Getenv("FTX_SECRET")
-	REDIS_PASSWORD string = os.Getenv("REDIS_PASSWORD")
+	envFileLocation        = LoadCreds("./")
+	ReadOnlyKey     string = os.Getenv("FTX_KEY")
+	ReadOnlySecret  string = os.Getenv("FTX_SECRET")
+	REDIS_PASSWORD  string = os.Getenv("REDIS_PASSWORD")
 
 	HASHES map[string]int64 = map[string]int64{
 		"preferences": 0,

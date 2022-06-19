@@ -10,7 +10,7 @@ func Test(t *testing.T) {
 	_, err := rdb.Info(ctx).Bool()
 	testName := "Redis Connection"
 	if err != nil {
-		t.Errorf("%vREASON: %v", getTestConclusion(false, testName), err)
+		t.Errorf("%v%v", getTestConclusion(false, testName), getReason(err))
 	}
 	getTestConclusion(true, testName)
 
