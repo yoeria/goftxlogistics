@@ -1,4 +1,4 @@
-package strategies
+package main
 
 import (
 	talib "github.com/markcheno/go-talib"
