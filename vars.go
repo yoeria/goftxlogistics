@@ -6,6 +6,8 @@ import (
 	"sync"
 	"time"
 
+	t "github.com/sdcoffey/techan"
+
 	"github.com/go-numb/go-ftx/rest"
 	"github.com/go-redis/redis/v8"
 )
@@ -58,6 +60,11 @@ var (
 		timeOfLocalChanges:  time.Time{},
 		timeOfOnlineChanges: time.Time{},
 	}
+)
+
+var (
+	// record all trades on this object
+	TradingRecord = t.NewTradingRecord()
 )
 
 const (
