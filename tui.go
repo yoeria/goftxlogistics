@@ -88,20 +88,8 @@ func newModel() model {
 		listKeys     = newListKeyMap()
 		itemDelegate list.ItemDelegate
 	)
-	var fields []string
-	e := reflect.ValueOf(&aPreferences)
-	for i := 0; i < e.NumField(); i++ {
-		fields = append(fields, e.Type().Name())
-	}
-
-	getValues := rdb.HMGet(ctx, "preferences", fields...)
-
-	vals := getValues.Val()
 	// Make list of items
-	items := make([]list.Item, 0)
-	for i := range vals {
-		items[i] = vals[i].(list.Item)
-	}
+	items := getListItems()
 
 	// Setup list
 	prefsList := list.New(items, itemDelegate, 0, 0)
@@ -122,6 +110,24 @@ func newModel() model {
 		list: prefsList,
 		keys: listKeys,
 	}
+}
+
+func getListItems() []list.Item {
+	var fields []string
+	e := reflect.ValueOf(&aPreferences)
+	for i := 0; i < e.NumField(); i++ {
+		fields = append(fields, e.Type().Name())
+	}
+
+	getValues := rdb.HMGet(ctx, "preferences", fields...)
+
+	vals := getValues.Val()
+
+	items := make([]list.Item, 0)
+	for i := range vals {
+		items[i] = vals[i].(list.Item)
+	}
+	return items
 }
 
 func (m model) Init() tea.Cmd {
