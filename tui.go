@@ -191,6 +191,9 @@ func (m model) View() string {
 func tui() {
 	rand.Seed(time.Now().UTC().UnixNano())
 
+	// Update the configuration to load in the updated values in the tui.
+	UpdateConfiguration()
+
 	if err := tea.NewProgram(newModel()).Start(); err != nil {
 		fmt.Println("Error running program:", err)
 		os.Exit(1)
