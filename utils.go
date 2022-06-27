@@ -70,7 +70,10 @@ func getPreferencesFields(p *Preferences) (fields []string) {
 		//valueField := val.Field(i)
 		typeField := val.Type().Field(i)
 		//tag := typeField.Tag
-
+		// If the found fieldname is "EnabledStrategies" the loop continues since we already have a value with a pointer in place
+		if typeField.Name == "EnabledStrategies" {
+			continue
+		}
 		fields = append(fields, typeField.Name)
 	}
 	return
