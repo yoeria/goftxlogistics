@@ -67,13 +67,14 @@ func getPreferencesFields(p *Preferences) (fields []string) {
 	val := reflect.ValueOf(p).Elem()
 
 	for i := 0; i < val.NumField(); i++ {
-		//valueField := val.Field(i)
+		valueField := val.Field(i)
 		typeField := val.Type().Field(i)
-		//tag := typeField.Tag
-		// If the found fieldname is "EnabledStrategies" the loop continues since we already have a value with a pointer in place
-		if typeField.Name == "EnabledStrategies" {
+
+		// Checks if value of field is a pointer; If so, continue
+		if valueField.Type().Kind() == reflect.Ptr {
 			continue
 		}
+
 		fields = append(fields, typeField.Name)
 	}
 	return
