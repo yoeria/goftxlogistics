@@ -26,6 +26,7 @@ func UpdateStrategiesStruct(s *strategies, hashTable string) error {
 	return nil
 }
 
+// Since the fields could be updated in code the fields are dynamic. Reflect get the structs' fieldnames
 func getStrategyFields(s *strategies) (fields []string) {
 	val := reflect.ValueOf(s).Elem()
 
@@ -61,6 +62,7 @@ func UpdatePreferencesStruct(p *Preferences, hashTable string) error {
 	return nil
 }
 
+// Since the fields could be updated in code the fields are dynamic. Reflect get the structs' fieldnames
 func getPreferencesFields(p *Preferences) (fields []string) {
 	val := reflect.ValueOf(p).Elem()
 
