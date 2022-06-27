@@ -7,7 +7,7 @@ import (
 )
 
 // Retrieve values from chosen hash table and put those into the provided struct
-func FillStrategiesStruct(s *strategies, hashTable string) error {
+func UpdateStrategiesStruct(s *strategies, hashTable string) error {
 	fields := getStrategyFields(s)
 	getValues := rdb.HMGet(ctx, hashTable, fields...)
 	values, err := getValues.Result()
@@ -40,7 +40,7 @@ func getStrategyFields(s *strategies) (fields []string) {
 }
 
 // Retrieve values from chosen hash table and put those into the provided struct
-func FillPreferencesStruct(p *Preferences, hashTable string) error {
+func UpdatePreferencesStruct(p *Preferences, hashTable string) error {
 
 	fields := getPreferencesFields(p)
 

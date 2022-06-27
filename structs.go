@@ -1,10 +1,11 @@
 package main
 
 import (
-	json "github.com/json-iterator/go"
 	"fmt"
 	"log"
 	"time"
+
+	json "github.com/json-iterator/go"
 
 	"github.com/go-numb/go-ftx/rest/private/orders"
 )
@@ -24,7 +25,7 @@ type Preferences struct {
 
 // Update/init the struct
 func (p *Preferences) Update() error {
-	return FillPreferencesStruct(p, "preferences")
+	return UpdatePreferencesStruct(p, "preferences")
 }
 
 type strategies struct {
@@ -35,7 +36,7 @@ type strategies struct {
 
 // Update/init the struct
 func (s *strategies) Update() error {
-	return FillStrategiesStruct(s, "strategies")
+	return UpdateStrategiesStruct(s, "strategies")
 }
 
 type Statistics struct {
