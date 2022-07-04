@@ -25,9 +25,9 @@ func main() {
 	}
 
 	// Make channel that receives all Order requests
-	chanOrder := make(chan Order)
+	ChanOrder := make(chan Order)
 	select {
-	case order := <-chanOrder:
+	case order := <-ChanOrder:
 		if aPreferences.MaxConcurrentPositions > p0.Statistics.ActivePositionsCount {
 			order.Exec()
 			// TODO: Place check routine if order is filled or not
