@@ -52,9 +52,15 @@ func UpdatePreferencesStruct(p *Preferences, hashTable string) error {
 	}
 
 	// TODO
-	// Put received values into the provided struct
-	for k, v := range values {
-		fmt.Printf("Key:\t%v\nValue:\t%v", k, v)
+	// Update the struct with the received values from db
+	for i := range values {
+		intValues, ok := (values)[i].(int64)
+		if !ok {
+			fmt.Println("Converting from []interface{} to int64 failed")
+			panic(1)
+		}
+
+		(*p).MaxConcurrentPositions = intValues
 
 	}
 
