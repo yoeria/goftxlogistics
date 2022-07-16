@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"os/exec"
 
 	"github.com/spf13/cobra"
 )
@@ -37,8 +38,6 @@ var (
 	}
 )
 
-
-
 // Declare persistent flags etc...
 func init() {
 	Verbose := false
@@ -53,13 +52,11 @@ func Exec() {
 }
 
 func getVersion() string {
-		getVersion, err := os.StartProcess("git", []string{"rev-parse", "--short", "HEAD"}, nil)
-		if err != nil {
-			fmt.Printf("Cannot parse version\nError: %v", err)
-		}
-		res, err := getVersion.Wait()
-		if err != nil {
-			fmt.Printf("Cannot parse version\nError: %v", err)
-		}
-		return res.String()
+	version := exec.Command("git", "rev-parse", "--short", "HEAD")
+	getVersion, err := version.CombinedOutput()
+	if err != nil {
+		fmt.Printf("Cannot parse version\nError: %v", err)
 	}
+	stringVersion := string(getVersion)
+	return stringVersion
+}
