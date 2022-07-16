@@ -12,6 +12,7 @@ func init() {
 	// Fill in rdb suppliable struct vars
 	UpdateConfiguration()
 	go cmd.Exec()
+	wg.Add(1)
 	go pocketbase.Exec()
 }
 
@@ -44,6 +45,8 @@ func main() {
 		UpdateConfiguration()
 	}
 
+	// Block ending of main process until waitgroup is empty
+	wg.Wait()
 }
 
 // This function triggers the update/initialization of the configuration vars
