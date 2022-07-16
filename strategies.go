@@ -1,6 +1,9 @@
 package main
 
 import (
+	"time"
+
+	"github.com/sdcoffey/big"
 	t "github.com/sdcoffey/techan"
 )
 
@@ -48,19 +51,36 @@ func StrategyEMA(series *t.TimeSeries, record *t.TradingRecord, Signal chan Orde
 		ExitRule:       exitRule,
 	}
 
-	if entryTrigger := strategy.ShouldEnter(0, record) {
+	if strategy.ShouldEnter(0, record) {
+		// Use records for keeping track of positions
 		record.Operate(t.Order{
-			Side:          0,
-			Security:      "",
+			Side:          t.BUY,
 			Price:         big.Decimal{},
-			Amount:        big.Decimal{},
 			ExecutionTime: time.Time{},
 		})
-	}
-	if exitTrigger := strategy.ShouldExit(0, record){
 
+		// TODO
+		Signal <- Order{
+			ClientID:          "", // Dynamic
+			Type:              "",
+			Market:            "",
+			Side:              "",
+			Price:             series.LastCandle().ClosePrice.Float(),
+			Size:              0, // Wallet allocation system to be made
+			ReduceOnly:        false,
+			Ioc:               false,
+			PostOnly:          false,
+			RejectOnPriceBand: false,
+		}
 	}
-
+	if strategy.ShouldExit(0, record) {
+		// Use records for keeping track of positions
+		record.Operate(t.Order{
+			Side:          t.SELL,
+			Price:         series.LastCandle().ClosePrice,
+			ExecutionTime: series.LastCandle().Period.End,
+		})
+	}
 
 }
 
