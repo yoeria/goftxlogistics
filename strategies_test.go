@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/go-numb/go-ftx/rest/public/markets"
@@ -8,12 +9,13 @@ import (
 )
 
 func TestStrategyEMA(t *testing.T) {
-	candles,err:= rc.Candles(&markets.RequestForCandles{ProductCode: "BTC-PERP",Resolution: (5*60)})
+	ftxcandles, err := rc.Candles(&markets.RequestForCandles{ProductCode: "BTC-PERP", Resolution: int(5 * 60)})
 	if err != nil {
-		panic(err)
+		report, _ := fmt.Printf("Func was not able to retrieve candles from exchange.\tREASON: '%v'", err)
+		panic(report)
 	}
-
-	tradeRecord:= techan.NewTradingRecord()
+	candles := *ftxcandles
+	tradeRecord := techan.NewTradingRecord()
 
 	type args struct {
 		series *techan.TimeSeries
@@ -23,7 +25,7 @@ func TestStrategyEMA(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-	}{{name: "TestStrategyEMA", args: args{series: ParseSeries(*candles), record: tradeRecord, Signal: make(chan Order)}}}
+	}{{name: "TestStrategyEMA", args: args{series: ParseSeries(candles), record: tradeRecord, Signal: make(chan Order)}}}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
