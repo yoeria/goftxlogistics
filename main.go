@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	cmd "github.com/yoeria/goftxlogistics/cmd"
-	"github.com/yoeria/goftxlogistics/pocketbase"
 )
 
 // Set default values in init func
@@ -12,7 +11,7 @@ func init() {
 	// Fill in rdb suppliable struct vars
 	UpdateConfiguration()
 	go cmd.Exec()
-	go pocketbase.Exec()
+	//go pocketbase.Exec()
 }
 
 // Launch instances by creating a variable with the value of struct ProcessInformation
