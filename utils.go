@@ -86,16 +86,20 @@ func getPreferencesFields(p *Preferences) (fields []string) {
 	return
 }
 
-// Pass if test is a successful test and the name of the test
-func getTestConclusion(isSuccess bool, testName string) string {
-	// if TRUE
-	if isSuccess {
-		return fmt.Sprintf("✅\t%v\n", testName)
-	}
-	// if FALSE
-	return fmt.Sprintf("❌\t%v\n", testName)
-}
+/* // TODO combine a rest request of historic candle data with a websocket request for the same asset/crypto
+func CandleStream(restReq *markets.RequestForCandles)(chTimeSeries chan *techan.TimeSeries){
+	// Create variables for receiving the request data
+	restData,err:= rc.Candles(restReq)
+	wsData:= make(chan realtime.Response)
+    // Connect to websocket stream (ticker)
+	go realtime.Connect(ctx, wsData, []string{"ticker"}, []string{restReq.ProductCode}, nil)
+	select {
+	case ch := <-wsData:
 
-func getReason(err error) string {
-	return fmt.Sprintf("❓REASON:\n%v", err)
+	}
+
+
 }
+*/
+
+// TODO func for quick indicator followup (second timeframes), make order squeezer (between ask/bid)
